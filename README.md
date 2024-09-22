@@ -8,6 +8,7 @@ Desarrollar un sistema de carbonatación de cerveza en barriles.
 
 ## Descripción
 El sistema de carbonatación consiste en un tanque de CO2 conectado al barril de cerveza a través de una válvula solenoide, a continuación se muestra el P&ID del proceso.
+
 ![P&ID](https://github.com/user-attachments/assets/5985314f-a571-417c-b897-6e4667d1432f)
 
 ### Lógica secuencial del proceso
@@ -42,3 +43,9 @@ NUCLEO-F429ZI
 * DIGITAL OUT 3: Señal de alarma acústica.
 * ANALOG IN 1: Medición de presión del sensor PT01.
 * UART: Comunicación con PC para indicación y operación del sistema.
+
+## Arquitectura del software
+
+### Diagrama UML de clases
+
+![UML](https://github.com/hbailo/Beer-Carbonation-System/blob/d4f6edefa25c21ac62fb0daf106ac1f02ebeeb73/docs/UML%20Class%20Diagram%20-%20overview.png)
