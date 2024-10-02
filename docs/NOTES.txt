@@ -1,4 +1,0 @@
-BPA1 - Pressure transmitter - A0 (PA3)
-QMB1 - Solenoid Valve       - D2 (PF15)
-MAA1 - Motor                - D3 (PE13)
- - Horn - D4 (PF14)
