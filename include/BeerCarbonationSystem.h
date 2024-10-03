@@ -1,5 +1,5 @@
-#ifndef COORDINATION_CONTROL__H
-#define COORDINATION_CONTROL__H
+#ifndef BEER_CARBONATION_SYSTEM__H
+#define BEER_CARBONATION_SYSTEM__H
 
 #include "CarbonationProcedure.h"
 #include "Carbonator.h"
@@ -9,14 +9,14 @@
 /**
  * @brief Coordination control logic of the beer carbonation system.
  */
-class CoordinationControl
+class BeerCarbonationSystem
 {
 
 public:
 
   
   /** @brief Default constructor */
-  CoordinationControl() ;
+  BeerCarbonationSystem() ;
   
   /** @brief Executes the coordination control logic. */
   void execute() ;

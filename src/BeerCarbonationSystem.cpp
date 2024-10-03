@@ -1,8 +1,8 @@
-#include "CoordinationControl.h"
+#include "BeerCarbonationSystem.h"
 #include "CarbonationProcedure.h"
 
 
-CoordinationControl::CoordinationControl()
+BeerCarbonationSystem::BeerCarbonationSystem()
   : carbonation_procedure(carbonator)
 {
   
@@ -12,7 +12,7 @@ CoordinationControl::CoordinationControl()
 /** @todo Add alarm managing and synchronize process status with hmi.
  *
  */
-void CoordinationControl::execute()
+void BeerCarbonationSystem::execute()
 {
 
   switch (hmi.getUserCommand()) {
