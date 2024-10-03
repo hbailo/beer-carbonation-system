@@ -1,0 +1,10 @@
+BPA1 - Pressure transmitter - A0 (PA3)
+QMB1 - Solenoid Valve       - D2 (PF15)
+MAA1 - Motor                - D3 (PE13)
+ - Horn - D4 (PF14)
+
+
+# Hardware
+* Antes de conectar un USB a CN13 primero alimentar la placa Nucleo.
+* La alimentación por USB (U5V) permite una corriente de 300 mA. La misma esta limitada a 500 mA por protección a través de U4.
+* Si se alimenta a través de VIN o E5V la corriente de salida del puerto 3V3 igualmente está limitada por el regulador U6 a 500 mA.
