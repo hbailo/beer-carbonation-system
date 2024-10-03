@@ -9,7 +9,7 @@ Desarrollar un sistema de carbonatación de cerveza en barriles.
 ## Descripción
 El sistema de carbonatación consiste en un tanque de CO2 conectado al barril de cerveza a través de una válvula solenoide, a continuación se muestra el P&ID del proceso.
 
-![P&ID](https://github.com/user-attachments/assets/5985314f-a571-417c-b897-6e4667d1432f)
+![P&ID](doc/P&ID.png)
 
 ### Lógica secuencial del proceso
 1. Se abre por primera vez la válvula PV01 y se cierra cuando PT01 = 3 bar.
