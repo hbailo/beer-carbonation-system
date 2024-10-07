@@ -1,14 +1,15 @@
-#ifndef CARBONATION_PROCEDURE__H
-#define CARBONATION_PROCEDURE__H
+#ifndef CARBONATION_RECIPE__H
+#define CARBONATION_RECIPE__H
 
 #include "Carbonator.h"
 
-class CarbonationProcedure
+
+class CarbonationRecipe
 {
 
 public:
   
-  CarbonationProcedure(Carbonator & carbonator) ;
+  CarbonationRecipe(Carbonator & carbonator) ;
   void start() ;
   void execute();
   void hold() ;

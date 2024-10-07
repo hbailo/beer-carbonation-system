@@ -1,11 +1,11 @@
-#ifndef HMI_DRIVER__H
-#define HMI_DRIVER__H
+#ifndef HMI__H
+#define HMI__H
 
 #include "mbed.h"
 
 #define HMI_HELP_PROMPT "Press:\n  1. To start the carbonation process.\n  2. To stop the carbonation process. \n  3. To reset the carbonation process."
 
-class HMIDriver
+class HMI
 {
 
 public:
@@ -17,7 +17,7 @@ public:
     RESET_CARBONATION_PROCEDURE
   } ;
   
-  HMIDriver() ;
+  HMI() ;
   
   UserCommand getUserCommand() ;
 

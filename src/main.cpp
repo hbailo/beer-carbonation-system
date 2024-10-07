@@ -1,11 +1,10 @@
-#include "mbed.h"
 #include "BeerCarbonationSystem.h"
+#include "mbed.h"
 
 
 /**
- * \brief Main program.
+ * @brief Main program
  *
- * 
  */
 int main()
 {

@@ -1,13 +1,13 @@
-#include "CarbonationProcedure.h"
+#include "CarbonationRecipe.h"
 
 
-CarbonationProcedure::CarbonationProcedure(Carbonator & carbonator)
+CarbonationRecipe::CarbonationRecipe(Carbonator & carbonator)
     : carbonator(carbonator)
 {
   
 }
 
-void CarbonationProcedure::start()
+void CarbonationRecipe::start()
 {
 
   if (state == IDLE) {
@@ -17,7 +17,7 @@ void CarbonationProcedure::start()
 }
 
 
-void CarbonationProcedure::execute()
+void CarbonationRecipe::execute()
 {
 
   if (state != EXECUTING) {
@@ -97,7 +97,7 @@ void CarbonationProcedure::execute()
 }
 
 
-void CarbonationProcedure::hold()
+void CarbonationRecipe::hold()
 {
 
   if (state == EXECUTING) {
@@ -107,7 +107,7 @@ void CarbonationProcedure::hold()
 }
 
 
-void CarbonationProcedure::stop()
+void CarbonationRecipe::stop()
 {
 
   if (state == EXECUTING) {
@@ -118,7 +118,7 @@ void CarbonationProcedure::stop()
 }
 
 
-void CarbonationProcedure::reset()
+void CarbonationRecipe::reset()
 {
 
   if (state == COMPLETE || state == STOPPED) {
@@ -129,7 +129,7 @@ void CarbonationProcedure::reset()
 }
 
 
-void CarbonationProcedure::resume()
+void CarbonationRecipe::resume()
 {
   
   if (state == HELD) {

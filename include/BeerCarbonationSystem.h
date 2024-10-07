@@ -1,38 +1,41 @@
 #ifndef BEER_CARBONATION_SYSTEM__H
 #define BEER_CARBONATION_SYSTEM__H
 
-#include "CarbonationProcedure.h"
+#include "CarbonationRecipe.h"
 #include "Carbonator.h"
-#include "HMIDriver.h"
+#include "HMI.h"
 #include "mbed.h"
 
 /**
- * @brief Coordination control logic of the beer carbonation system.
+ * @brief Beer carbonation system
+ *
+ * This class implements the process cell logic (ISA S88 design pattern), managing user interface, executing the recipes and controlling the equipment.
  */
 class BeerCarbonationSystem
 {
 
-public:
-
+  public:
   
-  /** @brief Default constructor */
+  /** @brief Initializes the process cell. */
   BeerCarbonationSystem() ;
+    
   
-  /** @brief Executes the coordination control logic. */
+  /** @brief Executes the process cell logic. */
   void execute() ;
 
-private:
-  /** @brief Carbonator equipment module. */
+  private:
+  
+  /** @brief Carbonator unit. */
   Carbonator carbonator ;
   
-  /** @brief Carbonation procedure. */
-  CarbonationProcedure carbonation_procedure ;
-  
-  /** @brief Alarm siren horn. */
-  //Horn horn ;
+  /** @brief Carbonation control recipe. */
+  CarbonationRecipe carbonation_recipe ;
+ 
+  /** @brief Human Machine Interface. */
+  HMI hmi ;
 
-  /** @brief HMI Driver. */
-  HMIDriver hmi ;
+  /** @brief Alarm siren. */
+  // Horn horn ;
   
 } ;
 
