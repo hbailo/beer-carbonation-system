@@ -6,43 +6,45 @@
 #include "PressureTransmitter.h"
 #include "SolenoidValve.h"
 
-
 /**
- *  @brief Carbonator equipment module.
+ *  @brief Carbonator unit equipment.
  */
 class Carbonator
 {
 
 public:
   
+  /** @brief Initializes carbonator unit. */
   Carbonator() ;
   
-  /** \brief Injects CO2 up to pressure. */
+  /** @brief Injects CO2 up to pressure. */
   bool injectCO2(float pressure) ;
 
-  /** \brief Dissolves CO2 in the beer. */
+  /** @brief Dissolves CO2 in the beer. */
   bool dissolveCO2() ;
 
-  /** \brief Stops the equipment. */
+  /** @brief Stops the unit equipment. */
   void stop() ;
 
-  /** \brief Returns the QMB1 pressure.*/
+  /** @brief Returns the beer barrel pressure.*/
   float getBPA1() noexcept ;
 
 private:
   
   void execute() ;
 
-  /** CO2 shut off valve. */
+  State state;
+  
+  /** @brief CO2 shut off valve. */
   SolenoidValve qmb1 ;
 
-  /** Agitator electric motor. */
+  /** @brief Barrel shaker electric motor. */
   OnOffMotor maa1 ;
 
-  /** Beer barrel pressure transmitter. */
+  /** @brief Beer barrel pressure transmitter. */
   PressureTransmitter bpa1 ;
 
-  /** Members used in dissolverCO2 */
+  /** Members used in dissolveCO2() algorithm*/
   Timer timer ;
   float last_bpa1_sample = 0.0 ;
   

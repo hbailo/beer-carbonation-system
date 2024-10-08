@@ -1,9 +1,8 @@
 #include "BeerCarbonationSystem.h"
-#include "CarbonationProcedure.h"
 
 
 BeerCarbonationSystem::BeerCarbonationSystem()
-  : carbonation_procedure(carbonator)
+  : carbonation_recipe(carbonator)
 {
   
 }
@@ -17,22 +16,22 @@ void BeerCarbonationSystem::execute()
 
   switch (hmi.getUserCommand()) {
     
-  case HMIDriver::START_CARBONATION_PROCEDURE:
-    carbonation_procedure.start() ;
+  case HMI::START_CARBONATION_RECIPE:
+    carbonation_recipe.start() ;
     break ; 
     
-  case HMIDriver::STOP_CARBONATION_PROCEDURE:
-    carbonation_procedure.stop() ;
+  case HMI::STOP_CARBONATION_RECIPE:
+    carbonation_recipe.stop() ;
     break ;
     
-  case HMIDriver::RESET_CARBONATION_PROCEDURE:
-    carbonation_procedure.reset();
+  case HMI::RESET_CARBONATION_RECIPE:
+    carbonation_recipe.reset();
     break ;
     
   default:
     break ;
   }
 
-  carbonation_procedure.execute() ;
+  carbonation_recipe.execute() ;
   
 }

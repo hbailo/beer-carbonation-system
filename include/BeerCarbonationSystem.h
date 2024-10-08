@@ -14,16 +14,15 @@
 class BeerCarbonationSystem
 {
 
-  public:
+public:
   
   /** @brief Initializes the process cell. */
-  BeerCarbonationSystem() ;
-    
+  BeerCarbonationSystem() ;    
   
   /** @brief Executes the process cell logic. */
   void execute() ;
 
-  private:
+private:
   
   /** @brief Carbonator unit. */
   Carbonator carbonator ;
@@ -35,7 +34,7 @@ class BeerCarbonationSystem
   HMI hmi ;
 
   /** @brief Alarm siren. */
-  // Horn horn ;
+  // Siren siren ;
   
 } ;
 
