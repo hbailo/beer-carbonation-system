@@ -3,48 +3,81 @@
 
 /**
  *  @param on_actuating_signal_pin the actuating signal DO pin.
+ *  @param response_time the solenoid valve response time.
  */
-SolenoidValve::SolenoidValve(PinName on_actuating_signal_pin)
-  : on_actuating_signal(on_actuating_signal_pin)
+SolenoidValve::SolenoidValve(PinName on_actuating_signal_pin, std::chrono::milliseconds response_time = 50ms)
+  : on_actuating_signal(on_actuating_signal_pin, false), response_time(response_time), state(OFF)
 {
   
 }
 
 
-/**
- *  This method clears the commands assigning false to each at the end of the call.
- */
-void SolenoidValve::execute() noexcept
+SolenoidValve::State SolenoidValve::on()
 {
 
-  // Control commands processing & ON actuating signal computing
-  if (protection_off_cmd) {
-    on_actuating_signal = false ;
-    state = OFF ;
+  switch (state) {
     
-  } else if (protection_on_cmd) {
+  case OFF: 
     on_actuating_signal = true ;
-    state = ON ;
+    timer.start() ;    
+    state = TURNING_ON ;
+    break ;
+
+  case ON:
+    break ;
     
-  } else if (off_cmd) {
-    on_actuating_signal = false ;
-    state = OFF;
-    
-  } else if (on_cmd) {
+  case TURNING_OFF:
     on_actuating_signal = true ;
-    state = ON ;
+    timer.reset() ;
+    state = TURNING_ON ;
+    break ;
+    
+  case TURNING_ON:
+    
+    if (duration_cast<milliseconds>(timer.elapsed_time()).count() > response_time) {
+      timer.stop() ;
+      state = ON ;
+    }
+    
+    break ;
+    
   }
 
-  protection_off_cmd = protection_on_cmd = off_cmd = on_cmd = false ;
+  return state ;
   
 }
 
 
-/**
- *  @return the solenoid valve state.
- */
-SolenoidValve::State SolenoidValve::getState() const noexcept
+SolenoidValve::State SolenoidValve::off()
 {
+
+  switch (state) {
+
+  case OFF:
+    break ;
+    
+  case ON:
+    on_actuating_signal = false ;
+    timer.start() ;
+    state = TURNING_OFF ;
+    break ;
+    
+  case TURNING_OFF:
+
+    if (duration_cast<milliseconds>(timer.elapsed_time()).count() > response_time) {
+      timer.stop() ;
+      state = OFF ;
+    }
+    
+    break ;
+    
+  case TURNING_ON:
+    on_actuating_signal = false ;
+    timer.reset() ;
+    state = TURNING_OFF ;
+    break ;
+    
+  }
 
   return state ;
   
