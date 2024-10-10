@@ -1,5 +1,6 @@
 #include "SolenoidValve.h"
 
+using namespace std::chrono ;
 
 /**
  *  @param on_actuating_signal_pin the actuating signal DO pin.
@@ -11,7 +12,9 @@ SolenoidValve::SolenoidValve(PinName on_actuating_signal_pin, std::chrono::milli
   
 }
 
-
+/**
+ * @return the solenoid valve state.
+ */
 SolenoidValve::State SolenoidValve::on()
 {
 
@@ -34,8 +37,9 @@ SolenoidValve::State SolenoidValve::on()
     
   case State::TURNING_ON:
     
-    if (duration_cast<milliseconds>(timer.elapsed_time()).count() > response_time) {
-      timer.stop() ;
+    if (duration_cast<milliseconds>(timer.elapsed_time()) > response_time) {
+      timer.stop();
+      timer.reset() ;
       state = State::ON ;
     }
     
@@ -47,7 +51,9 @@ SolenoidValve::State SolenoidValve::on()
   
 }
 
-
+/**
+ * @return the solenoid valve state.
+ */
 SolenoidValve::State SolenoidValve::off()
 {
 
@@ -64,8 +70,9 @@ SolenoidValve::State SolenoidValve::off()
     
   case State::TURNING_OFF:
 
-    if (duration_cast<milliseconds>(timer.elapsed_time()).count() > response_time) {
-      timer.stop() ;
+    if (duration_cast<milliseconds>(timer.elapsed_time()) > response_time) {
+      timer.stop();
+      timer.reset() ;
       state = State::OFF ;
     }
     

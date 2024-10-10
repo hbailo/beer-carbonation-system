@@ -3,7 +3,6 @@
 
 #include "mbed.h"
 
-
 /**
  *  @brief Solenoid valve control module.
  *
@@ -27,12 +26,11 @@ public:
   /** @brief Turns off the solenoid valve. */
   State off() ;
 
-
 private:
 
   /** @brief Digital out signal. */
   DigitalOut on_actuating_signal ;
-  
+
   /** @brief Response time. */
   std::chrono::milliseconds response_time ;
 
