@@ -37,3 +37,6 @@
 
 # Mbed-OS folder
 mbed-os/
+
+# Build folder
+build/
