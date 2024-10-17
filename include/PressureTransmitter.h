@@ -10,20 +10,18 @@ class PressureTransmitter
 {
 
 public:
-  
   /** @brief Constructs the transmitter module with the specified AI pin. */
-  PressureTransmitter(PinName measured_pressure_signal_pin) ;
+  PressureTransmitter(PinName analog_input_pin);
 
   /** @brief Returns the scaled measured value. */
   operator float();
   
 private:
-  
   /** @brief Analog in signal */
-  AnalogIn measured_pressure_signal ;
+  AnalogIn pressure_signal;
 
   /** @brief Scales the measured voltage signal to pressure units. */
-  float scale() ;
+  float scale();
   
 } ;
 

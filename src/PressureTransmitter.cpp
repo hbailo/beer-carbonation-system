@@ -1,8 +1,8 @@
 #include "PressureTransmitter.h"
 
 
-PressureTransmitter::PressureTransmitter(PinName measured_pressure_signal_pin)
-    : measured_pressure_signal(measured_pressure_signal_pin)
+PressureTransmitter::PressureTransmitter(PinName analog_input_pin)
+    : pressure_signal(analog_input_pin)
 {
  
 }
@@ -11,7 +11,7 @@ PressureTransmitter::PressureTransmitter(PinName measured_pressure_signal_pin)
 PressureTransmitter::operator float()
 {
 
-  return scale() ;
+  return scale();
   
 }
 
@@ -25,6 +25,6 @@ PressureTransmitter::operator float()
 float PressureTransmitter::scale()
 {
 
-  return measured_pressure_signal.read_voltage() / 3.3 * 5.0 ;
+  return pressure_signal.read() * 5.0;
   
 }
