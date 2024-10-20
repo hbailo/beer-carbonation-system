@@ -4,52 +4,71 @@
 #include "Carbonator.h"
 
 /**
- * @brief Carbonation master recipe
+ *  @brief Carbonation master recipe
  *
- * This class is an ISA S88 master recipe that defines one procedure to
- * carbonatize a beer barrel.
-*/
+ *  This class is an ISA S88 master recipe that defines one procedure to
+ *  carbonatize a beer barrel.
+ */
 class CarbonationRecipe
 {
 
 public:
+  /** @brief States of the recipe. */
+  enum class RecipeState {IDLE, RESUMMING, EXECUTING, HOLDING, HELD, STOPPING, STOPPED, COMPLETE, RESETTING};
   
-  /** @brief Initializes the recipe by assigning the carbonator unit. */
-  CarbonationRecipe(Carbonator & carbonator) ;
+  /** @brief Initializes the recipe by assigning a carbonator unit. */
+  CarbonationRecipe(Carbonator& carbonator);
 
-  /** @brief Starts the recipe procedure. */
-  void start() ;
+  /** @brief Starts the recipe. */
+  RecipeState start();
 
-  /** @brief Holds the recipe procedure. */
-  void hold() ;
+  /** @brief Holds the recipe. */
+  RecipeState hold();
 
-  /** @brief Stops the recipe procedure. */
-  void stop() ;
+  /** @brief Stops the recipe. */
+  RecipeState stop();
 
-  /** @brief Resumes the recipe procedure. */
-  void resume() ;
+  /** @brief Resumes the recipe. */
+  RecipeState resume();
 
-  /** @brief Resets the recipe procedure. */
-  void reset() ;
-
-  /** @brief Executes the recipe procedure. */
-  void execute() ;
+  /** @brief Resets the recipe. */
+  RecipeState reset();
+  
+  /** @brief Updates the recipe. */
+  RecipeState update();
 
 private:
+  /** @brief Assigned carbonator unit. */
+  Carbonator& carbonator;
   
-  enum State {IDLE, EXECUTING, HELD, STOPPED, COMPLETE};
-  State state ;
+  /** @brief Recipe state. */
+  RecipeState recipe_state;
 
-  enum Step {STEP_1, STEP_2, STEP_3, STEP_4, STEP_5, STEP_6} ;
-  Step step ;
+  /** @brief Steps of the recipe. */
+  enum class Step {STEP_1, STEP_2, STEP_3, STEP_4, STEP_5, STEP_6};
 
-  /** @brief Carbonator equipment module. */
-  Carbonator & carbonator ;
+  /** @brief Recipe step. */
+  Step step;
+  
+  /** @brief Handles the executing recipe state. */
+  void handleExecutingState();
 
-  /** @todo Add batch specific information, id, parameters reports, status      
-   * indication, etc for HMI interface.
+  /** @brief Handles the stopping recipe state. */
+  void handleStoppingState();
+
+  /** @brief Handles the holding recipe state. */
+  void handleHoldingState();
+  
+  /** @brief Handles the resumming recipe state. */
+  void handleResummingState();
+
+  /** @brief Handles the resetting recipe state. */
+  void handleResettingState();
+  
+  /** @todo
+   *  FEATURE: Add batch specific information, id, parameters reports, status
+   *  indication, etc for logging.
    */
-  
-} ;
+};
 
 #endif

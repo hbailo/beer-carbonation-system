@@ -1,64 +1,191 @@
 #include "CarbonationRecipe.h"
+#include "Carbonator.h"
 
 
-CarbonationRecipe::CarbonationRecipe(Carbonator & carbonator)
-  : state(IDLE), step(STEP_1), carbonator(carbonator)
+/**
+ *  The recipe is initialized in IDLE state ready to start.
+ *  @param carbonator the assigned carbonator unit.
+ */
+CarbonationRecipe::CarbonationRecipe(Carbonator& carbonator)
+  : carbonator(carbonator), recipe_state(RecipeState::IDLE), step(STEP_1)
 {
   
 }
 
-
-void CarbonationRecipe::start()
+/**
+ *  Signals the recipe to transition to the EXECUTING state if it is in IDLE
+ *  state, otherwise it does nothing.
+ * 
+ *  @return the recipe state.
+ */ 
+CarbonationRecipe::RecipeState CarbonationRecipe::start()
 {
 
-  if (state == IDLE) {
-    state = EXECUTING;
+  if (recipe_state == RecipeState::IDLE) {
+    recipe_state = RecipeState::EXECUTING;
   }
+
+  return recipe_state;
   
 }
 
-
-void CarbonationRecipe::execute()
+/**
+ *  Signals the recipe to transition to the HELD state if it is in EXECUTING
+ *  state, otherwise it does nothing.
+ *  The recipe pass through the HOLDING intermediate state before reaching the HELD state.
+ *
+ *  @return the recipe state.
+ */ 
+CarbonationRecipe::RecipeState CarbonationRecipe::hold()
 {
 
-  if (state != EXECUTING) {
-    return ;
+  if (recipe_state == RecipeState::EXECUTING) {
+    recipe_state = RecipeState::HOLDING ;
   }
+
+  return recipe_state;
   
+}
+
+/**
+ *  Signals the recipe to transition to the STOPPED state if it is in EXECUTING or HELD
+ *  state, otherwise it does nothing.
+ *  The recipe pass through the STOPPING intermediate state before reaching the STOPPED state.
+ *
+ *  @return the recipe state.
+ */ 
+CarbonationRecipe::RecipeState CarbonationRecipe::stop()
+{
+
+  if (recipe_state == RecipeState::EXECUTING || recipe_state == RecipeState::HELD) {
+    recipe_state = RecipeState::STOPPING;
+  }
+
+  return recipe_state;
+  
+}
+
+/**
+ *  Signals the recipe to transition to the EXECUTING state if it is in HELD
+ *  state, otherwise it does nothing.
+ *
+ *  The recipe pass through the RESUMMING intermediate state before reaching the EXECUTING state.
+ *  @return the recipe state.
+ */ 
+CarbonationRecipe::RecipeState CarbonationRecipe::resume()
+{
+
+  if (recipe_state == RecipeState::HELD) {
+    carbonator.resume();
+    recipe_state = RecipeState::EXECUTING;
+  }
+
+  return recipe_state;
+  
+}
+
+/**
+ *  Signals the recipe to transition to the IDLE state if it is in COMPLETE or
+ *  STOPPED state, otherwise it does nothing.
+ *  The recipe pass through the RESETTING intermediate state before reaching the IDLE state. 
+ *  @todo It forwards the signal to the carbonator unit.
+ * 
+ *  @return the recipe state.
+ */ 
+CarbonationRecipe::RecipeState CarbonationRecipe::reset()
+{
+
+  if (recipe_state == RecipeState::COMPLETE || recipe_state == RecipeState::STOPPED) {
+    carbonator.reset();         // TODO: check logic
+    step = Step::STEP_1;
+    recipe_state = RecipeState::RESETTING;
+  }
+
+  return recipe_state;
+  
+}
+/**
+ *  @return the recipe state.
+ */
+CarbonationRecipe::RecipeState CarbonationRecipe::update()
+{
+
+  switch (recipe_state) {
+
+  case RecipeState::EXECUTING:
+    handleExecutingState();
+    break;
+
+  case RecipeState::STOPPING:
+    handleStoppingState();
+    break;
+
+  case RecipeState::HOLDING:
+    handleHoldingState();
+    break;
+
+  case RecipeState::RESUMMING:
+    handleResummingState();
+    break;
+
+  case RecipeState::RESETTING:
+    handleResettingState();
+    break;
+    
+  case RecipeState::IDLE:
+  case RecipeState::HELD:
+  case RecipeState::STOPPED:
+  case RecipeState::COMPLETE:
+    break;
+    
+  }
+
+  return recipe_state;
+  
+}
+
+/**
+ *  This method executes the recipe procedure.
+ *  The recipe procedure is implemented as a state machine where
+ *  each state is a step in the procedure.
+ */
+void CarbonationRecipe::handleExecutingState()
+{
+
   switch (step) {
 
-  case STEP_1:
+  case Step::STEP_1:
     
     if (carbonator.injectCO2(3)) {
-      step = STEP_2 ;
+      step = Step::STEP_2 ;
     }
       
     break ;
 
-  case STEP_2:
+  case Step::STEP_2:
     
     if (carbonator.dissolveCO2()) {
 
       if (carbonator.getBPA1() < 0.9) {
-        step = STEP_3 ;
+        step = Step::STEP_3 ;
       } else if (carbonator.getBPA1() > 1) {
         stop() ; 
       } else {
-        state = COMPLETE ;
+        recipe_state = RecipeState::COMPLETE ;
       }
     }
 	
     break ;
 
-  case STEP_3:
+  case Step::STEP_3:
     
     if (carbonator.injectCO2(2)) {
-      step = STEP_4 ;
+      step = Step::STEP_4 ;
     }
       
     break ;
 
-  case STEP_4:
+  case Step::STEP_4:
     
     if (carbonator.dissolveCO2()) {
       
@@ -67,13 +194,13 @@ void CarbonationRecipe::execute()
       } else if (carbonator.getBPA1() > 1) {
         stop() ; 
       } else {
-        state = COMPLETE ;
+        recipe_state = RecipeState::COMPLETE ;
       }
     }
     
     break ;
       
-  case STEP_5:
+  case Step::STEP_5:
     
     if (carbonator.injectCO2(1)) {
       step = STEP_6 ;
@@ -90,60 +217,12 @@ void CarbonationRecipe::execute()
       } else if (carbonator.getBPA1() > 1) {
         stop() ; 
       } else {
-        state = COMPLETE ;
+        recipe_state = RecipeState::COMPLETE ;
       }
     }
     
     break ;
-      
-  default:
-    stop() ;
-      
-  }
-  
-}
 
-
-void CarbonationRecipe::hold()
-{
-
-  if (state == EXECUTING) {
-    carbonator.hold() ;
-    state = HELD ;
-  }
-  
-}
-
-
-void CarbonationRecipe::stop()
-{
-
-  if (state == EXECUTING || state == HELD) {
-    carbonator.stop() ;
-    state = STOPPED ;
-  }
-  
-}
-
-
-void CarbonationRecipe::reset()
-{
-
-  if (state == COMPLETE || state == STOPPED) {
-    carbonator.reset() ;
-    step  = STEP_1 ;
-    state = IDLE ;
-  }
-  
-}
-
-
-void CarbonationRecipe::resume()
-{
-
-  if (state == HELD) {
-    carbonator.resume() ;    
-    state = EXECUTING ;
   }
   
 }
