@@ -34,6 +34,19 @@ A continuación se describen los pasos de la receta de carbonatación implementa
 
 Nota: en los pasos 2, 4 y 6 la condición BPA1 > 1 bar detiene la receta dado que no debería producirse si el sistema funciona adecuadamente. Se debe revisar el equipo.
 
+### Operación
+La operación del sistema se basa en la ejecución de la receta de carbonatación.
+
+El operador controla el estado de la receta a través de los siguientes comandos:
+
+* Start:  inicia la receta.
+* Stop:   detiene la receta.
+* Hold:   pausa la receta.
+* Resume: reanuda la receta.
+* Reset:  reinicia la receta.
+
+Los comandos se encuentran ligados con los estados de la receta de acuerdo al siguiente diagrama:
+
 ### Alarmas y acciones de protección
 
 * BPA1 > 4 bar: se detiene el proceso, se indica la alarma en el HMI, se activa la sirena y se envía un mensaje a la computadora de supervisión.
@@ -44,7 +57,7 @@ A continuación se muestra un esquemático de los módulos de hardware del siste
 ### Microcontrolador
 El control del sistema se realiza con una placa NUCLEO-F429ZI que posee el microcontrolador STM32F249ZI.
 
-#### Periféricos a utilizar
+#### Periféricos
 * DIGITAL OUT 1: Señal de actuación de la válvula solenoide QMB1.
 * DIGITAL OUT 2: Señal de actuación del motor MAA1 de la criba vibratoria.
 * DIGITAL OUT 3: Señal de actuación de la sirena.
@@ -86,14 +99,16 @@ Comandos permitidos:
 
 ### Arquitectura
 
-#### A continuación se muestra el diagrama UML de clases del sistema.
+#### Diagrama UML de clases
 
-![UML](https://github.com/hbailo/Beer-Carbonation-System/blob/d4f6edefa25c21ac62fb0daf106ac1f02ebeeb73/docs/UML%20Class%20Diagram%20-%20overview.png)
+![UML](docs/UML Class Diagram - overview.png)
 
 
 #### Diagramas de estados
 A continuación se muestran los principales diagramas de estados de las clases.
 
+### Documentación
+El código se encuentra documentado con doxygen. Ejecutar doxygen Doxyfile para generar la documentación en la carpeta doc.
 
 ### Compilación [Debian]
 La compilación se realiza con la herramienta mbed cli a través del script Makefile.
