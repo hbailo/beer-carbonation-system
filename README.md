@@ -47,7 +47,7 @@ El operador controla el estado de la receta a través de los siguientes comandos
 
 Los comandos se encuentran ligados con los estados de la receta de acuerdo al siguiente diagrama:
 
-![UML](doc/State machines diagrams - CarbonationRecipe.png)
+![CR](doc/CarbonationRecipe.png)
 
 ### Alarmas y acciones de protección
 
