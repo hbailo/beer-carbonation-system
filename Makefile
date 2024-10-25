@@ -1,15 +1,16 @@
 MAKEFLAGS += -s
 
 
-compile:
+compile:  # Compile develop profile
 	cmake --build build/NUCLEO_F429ZI/develop/GCC_ARM -j 4
 
-new:
-	~/.virtualenvs/mbed-os/bin/mbed-tools new .	 # Create new MBED OS project
+new:  # Create new MBED OS project
+	~/.virtualenvs/mbed-os/bin/mbed-tools new -c .	 
+	ln -s ~/lib/mbed-os mbed-os						 # Path to local MBED OS library
 
-configure: # MBED OS develop profile
+configure:  # Configure MBED OS develop profile
 	~/.virtualenvs/mbed-os/bin/mbed-tools configure -m NUCLEO_F429ZI -b develop -t GCC_ARM -o build/NUCLEO_F429ZI/develop/GCC_ARM # Configure MBED OS
 	cmake -S . -B build/NUCLEO_F429ZI/develop/GCC_ARM # Generate project's buildsystem
 
-flash:
-	cp cmake_build/NUCLEO_F429ZI/develop/GCC_ARM/Example-1.bin /media/nano/NOD_F429ZI
+flash:  # Flash binary to MCU
+	cp build/NUCLEO_F429ZI/develop/GCC_ARM/Beer-Carbonation-System.bin /media/nano/NOD_F429ZI # 
