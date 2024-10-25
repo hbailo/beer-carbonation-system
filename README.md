@@ -105,7 +105,7 @@ Comandos permitidos:
 
 #### Diagrama UML de clases
 
-![UML](doc/UML Class Diagram.png)
+![UML](doc/UML.png)
 
 
 #### Diagramas de estados
@@ -113,11 +113,11 @@ A continuación se muestran los principales diagramas de estados de las clases.
 
 La clase CarbonationRecipe permite el control del estado de la receta de carbonatación implementando la siguiente máquina de estados:
 
-![CarbonationRecipe](doc/State machines diagrams - CarbonationRecipe.png)
+![CarbonationRecipe](doc/CarbonationRecipe.png)
 
 Dentro del estado EXECUTING se encuentra la máquina de estados que implementa la receta por pasos:
 
-![CarbonationRecipe-ExecutingSteps](doc/State machines diagrams-CarbonationRecipe-ExecutingSteps.png)
+![CarbonationRecipe-ExecutingSteps](doc/CarbonationRecipe-ExecutingSteps.png)
 
 De igual manera las clases CO2Dissolver y CO2Injector implementan la misma máquina de estados para controlar el equipo de acuerdo al estado de la receta pero cada una implementa en el estado EXECUTING el algoritmo correspondiente.
 
