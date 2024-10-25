@@ -8,6 +8,8 @@
  *
  *  This class is an ISA S88 master recipe that defines one procedure to
  *  carbonatize a beer barrel.
+ *
+ *  @todo Add batch specific information for reporting.
  */
 class CarbonationRecipe
 {
@@ -15,7 +17,7 @@ class CarbonationRecipe
 public:
   /** @brief States of the recipe. */
   enum class RecipeState {IDLE, RESUMMING, EXECUTING, HOLDING, HELD, STOPPING, STOPPED, COMPLETE, RESETTING};
-  
+
   /** @brief Initializes the recipe by assigning a carbonator unit. */
   CarbonationRecipe(Carbonator& carbonator);
 
@@ -37,6 +39,12 @@ public:
   /** @brief Updates the recipe. */
   RecipeState update();
 
+  /** @brief Returns the recipe state. */
+  RecipeState getRecipeState();
+
+  /** @brief Returns the recipe step number. */
+  int getRecipeStep();
+  
 private:
   /** @brief Assigned carbonator unit. */
   Carbonator& carbonator;
@@ -45,10 +53,10 @@ private:
   RecipeState recipe_state;
 
   /** @brief Steps of the recipe. */
-  enum class Step {STEP_1, STEP_2, STEP_3, STEP_4, STEP_5, STEP_6};
+  enum class RecipeStep {STEP_1, STEP_2, STEP_3, STEP_4, STEP_5, STEP_6};  
 
   /** @brief Recipe step. */
-  Step step;
+  RecipeStep step;
   
   /** @brief Handles the executing recipe state. */
   void handleExecutingState();
@@ -64,11 +72,7 @@ private:
 
   /** @brief Handles the resetting recipe state. */
   void handleResettingState();
-  
-  /** @todo
-   *  FEATURE: Add batch specific information, id, parameters reports, status
-   *  indication, etc for logging.
-   */
+   
 };
 
 #endif

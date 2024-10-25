@@ -16,21 +16,27 @@ public:
   /** @brief Initializes the equipment module. */
   CO2Injector(PressureTransmitter& bpa1);
   
-  /** @brief Injects CO2 up to pressure. */
+  /** @brief Starts the "Inject CO2" phase. */
   PhaseState injectCO2(float pressure);
   
-  /** @brief Holds the equipment phase. */
+  /** @brief Holds the "Inject CO2" phase. */
   PhaseState hold();
 
-  /** @brief Stops the equipment phase. */
+  /** @brief Stops the "Inject CO2" phase. */
   PhaseState stop();
 
-  /** @brief Resumes the equipment phase. */
+  /** @brief Resumes the "Inject CO2" phase. */
   PhaseState resume();
 
-  /** @brief Resets the equipment phase. */
+  /** @brief Resets the "Inject CO2" phase. */
   PhaseState reset();
 
+  /** @brief Updates the "Inject CO2" phase. */
+  PhaseState update();
+
+  /** @brief Returns the "Inject CO2" phase state. */
+  PhaseState getPhaseState();
+  
 private:
   /** @brief CO2 shut off valve. */
   SolenoidValve qmb1;
@@ -38,15 +44,33 @@ private:
   /** @brief Beer barrel pressure transmitter. */
   PressureTransmitter &bpa1;
   
-  /** @brief Inject CO2 phase state. */
+  /** @brief "Inject CO2" phase state. */
   PhaseState state;
 
-  /** @brief Steps of the Inject CO2 phase. */
+  /** @brief Steps of the "Inject CO2" phase. */
   enum class PhaseStep {STEP_1, STEP_2, STEP_3};
 
-  /** @brief Inject CO2 phase step. */
+  /** @brief "Inject CO2" phase step. */
   PhaseStep step;
+
+  /** @brief "Inject CO2" phase pressure setpoint. */
+  float pressure_setpoint;
   
+  /** @brief Handles the "Inject CO2" executing phase state. */
+  void handleExecutingState();
+
+  /** @brief Handles the "Inject CO2" stopping phase state. */
+  void handleStoppingState();
+
+  /** @brief Handles the "Inject CO2" holding phase state. */
+  void handleHoldingState();
+  
+  /** @brief Handles the "Inject CO2" resummingstate. */
+  void handleResummingState();
+
+  /** @brief Handles the "Inject CO2" resetting state. */
+  void handleResettingState();
+
 } ;
 
 #endif

@@ -1,37 +1,25 @@
 #include "BeerCarbonationSystem.h"
 
-
+/**
+ *
+ */
 BeerCarbonationSystem::BeerCarbonationSystem()
-  : carbonation_recipe(carbonator)
+  : carbonation_recipe(carbonator), hmi(carbonator, carbonation_recipe), supervisory_computer(carbonator, carbonation_recipe)
 {
   
 }
 
 
-/** @todo Add alarm managing and synchronize process status with hmi.
+/** 
  *
  */
-void BeerCarbonationSystem::execute()
+void BeerCarbonationSystem::update()
 {
 
-  switch (hmi.getUserCommand()) {
-    
-  case HMI::START_CARBONATION_RECIPE:
-    carbonation_recipe.start() ;
-    break ; 
-    
-  case HMI::STOP_CARBONATION_RECIPE:
-    carbonation_recipe.stop() ;
-    break ;
-    
-  case HMI::RESET_CARBONATION_RECIPE:
-    carbonation_recipe.reset();
-    break ;
-    
-  default:
-    break ;
-  }
-
-  carbonation_recipe.execute() ;
+  supervisory_computer.update();
+  hmi.update();
+  // alarm_system.update();  
+  carbonation_recipe.update();
+  carbonator.update();
   
 }

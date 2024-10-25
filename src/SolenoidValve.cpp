@@ -1,6 +1,6 @@
 #include "SolenoidValve.h"
 
-using namespace std::chrono ;
+using namespace std::chrono;
 
 /**
  *  @param on_actuating_signal_pin the actuating signal DO pin.
@@ -21,10 +21,10 @@ SolenoidValve::State SolenoidValve::on()
   switch (state) {
     
   case State::OFF: 
-    on_actuating_signal = true ;
-    timer.start() ;    
-    state = State::TURNING_ON ;
-    break ;
+    on_actuating_signal = true;
+    timer.start();    
+    state = State::TURNING_ON;
+    break;
 
   case State::ON:
     break ;
