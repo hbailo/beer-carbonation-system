@@ -124,6 +124,7 @@ De igual manera las clases CO2Dissolver y CO2Injector implementan la misma máqu
 Para CO2Injector se implementa:
 
 ![CO2Injector](doc/CO2Injector.png)
+
 Para CO2Dissolver se implementa:
 
 ![CO2Dissolver](doc/CO2Dissolver.png)
