@@ -56,7 +56,7 @@ Los comandos se encuentran ligados con los estados de la receta de acuerdo al si
 ## Arquitectura de control
 A continuación se muestra un esquemático de los módulos de hardware del sistema y se procede con las especificaciones de los mismos.
 
-![UML](doc/State machines diagrams-Hardware architecture.png)
+![HA](doc/State machines diagrams-Hardware architecture.png)
 
 ### Microcontrolador
 El control del sistema se realiza con una placa NUCLEO-F429ZI que posee el microcontrolador STM32F249ZI.
