@@ -47,7 +47,7 @@ El operador controla el estado de la receta a través de los siguientes comandos
 
 Los comandos se encuentran ligados con los estados de la receta de acuerdo al siguiente diagrama:
 
-![UML](docs/State machines diagrams - CarbonationRecipe.png)
+![UML](doc/State machines diagrams - CarbonationRecipe.png)
 
 ### Alarmas y acciones de protección
 
@@ -56,7 +56,7 @@ Los comandos se encuentran ligados con los estados de la receta de acuerdo al si
 ## Arquitectura de control
 A continuación se muestra un esquemático de los módulos de hardware del sistema y se procede con las especificaciones de los mismos.
 
-![UML](docs/State machines diagrams-Hardware architecture.png)
+![UML](doc/State machines diagrams-Hardware architecture.png)
 
 ### Microcontrolador
 El control del sistema se realiza con una placa NUCLEO-F429ZI que posee el microcontrolador STM32F249ZI.
@@ -105,7 +105,7 @@ Comandos permitidos:
 
 #### Diagrama UML de clases
 
-![UML](docs/UML Class Diagram.png)
+![UML](doc/UML Class Diagram.png)
 
 
 #### Diagramas de estados
@@ -113,25 +113,25 @@ A continuación se muestran los principales diagramas de estados de las clases.
 
 La clase CarbonationRecipe permite el control del estado de la receta de carbonatación implementando la siguiente máquina de estados:
 
-![UML](docs/State machines diagrams - CarbonationRecipe.png)
+![UML](doc/State machines diagrams - CarbonationRecipe.png)
 
 Dentro del estado EXECUTING se encuentra la máquina de estados que implementa la receta por pasos:
 
-![UML](docs/State machines diagrams-CarbonationRecipe-ExecutingSteps.png)
+![UML](doc/State machines diagrams-CarbonationRecipe-ExecutingSteps.png)
 
 De igual manera las clases CO2Dissolver y CO2Injector implementan la misma máquina de estados para controlar el equipo de acuerdo al estado de la receta pero cada una implementa en el estado EXECUTING el algoritmo correspondiente.
 
 Para CO2Injector se implementa:
 
-![UML](docs/State machines diagrams-CO2Injector.png)
+![UML](doc/State machines diagrams-CO2Injector.png)
 
 Para CO2Dissolver se implementa:
 
-![UML](docs/State machines diagrams-CO2Dissolver.png)
+![UML](doc/State machines diagrams-CO2Dissolver.png)
 
 Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuadores. Dado que se trata de controles on/off ambos módulos implementan la siguiente máquina de estados:
 
-![UML](docs/State machines diagrams-SolenoidValve.png)
+![UML](doc/State machines diagrams-SolenoidValve.png)
 
 ### Documentación
 El código se encuentra documentado con doxygen. Ejecutar doxygen Doxyfile para generar la documentación en la carpeta doc.
