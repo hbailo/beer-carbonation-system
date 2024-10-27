@@ -9,7 +9,7 @@ include(${MBED_PATH}/tools/cmake/app.cmake)
 ## APP project
 project(Beer-Carbonation-System)
 
-set(APP_TARGET beer_carbonation_system)
+set(APP_TARGET beer-carbonation-system)
 
 add_subdirectory(${MBED_PATH})
 
