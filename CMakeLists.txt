@@ -7,7 +7,7 @@ set(MBED_CONFIG_PATH ${CMAKE_CURRENT_BINARY_DIR} CACHE INTERNAL "")
 include(${MBED_PATH}/tools/cmake/app.cmake)
 
 ## APP project
-project(Beer-Carbonation-System)
+project(beer-carbonation-system)
 
 set(APP_TARGET beer-carbonation-system)
 
