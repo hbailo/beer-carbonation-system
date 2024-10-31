@@ -2,8 +2,5 @@
 doc/html
 doc/latex
 
-# Mbed-OS folder
-mbed-os
-
 # Build folder
 build
