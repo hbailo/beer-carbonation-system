@@ -1,6 +1,5 @@
-# Doxygen output
-doc/html
-doc/latex
+# Doxygen output folder
+doc/doxygen
 
 # Build folder
 build
