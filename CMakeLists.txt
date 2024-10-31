@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.19.0)
 
-## MBED configuration
+## Mbed configuration
 set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/mbed-os CACHE INTERNAL "")
 set(MBED_CONFIG_PATH ${CMAKE_CURRENT_BINARY_DIR} CACHE INTERNAL "")
 
 include(${MBED_PATH}/tools/cmake/app.cmake)
 
-## APP project
+## App configuration
 project(beer-carbonation-system)
 
-set(APP_TARGET beer-carbonation-system)
-
 add_subdirectory(${MBED_PATH})
+
+set(APP_TARGET beer-carbonation-system)
 
 include_directories(include)
 
@@ -22,7 +22,7 @@ file(GLOB app_target_sources
 
 add_executable(${APP_TARGET} ${app_target_sources})
 
-target_link_libraries(${APP_TARGET} mbed-os)
+target_link_libraries(${APP_TARGET} PRIVATE mbed-os)
 
 mbed_set_post_build(${APP_TARGET})
 
