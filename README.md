@@ -136,9 +136,43 @@ Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuado
 ### Documentación
 El código se encuentra documentado con doxygen. Ejecutar doxygen Doxyfile para generar la documentación en la carpeta doc.
 
-### Compilación [Debian]
-La compilación se realiza con la herramienta mbed cli a través del script Makefile.
+### Compilación 
+Prerequisitos:
+* Git >= 2.39
+* CMake >= 3.19
+* Python >= 3.6
+* Mbed CLI 2
+* Arm GNU toolchain >= 12.2
 
-Ejecutar make configure y luego make.
+1. Clonar el repositorio.
 
-NOTA: se debe configurar previamente el script con los parámetros locales: path de la librería mbed-os e instacia de python a utilizar para ejecutar mbed-cli. Para flashear con make flash establecer la dirección de destino correcta.
+```console
+    git clone https://github.com/hbailo/beer-carbonation-system.git
+```
+
+2. Inicializar y actualizar la librería mbed-os configurada como submodulo del repositorio.
+
+```console
+    git submodule init
+    git submodule update --depth 1
+```
+
+3. Configurar el proyecto de Mbed con el dispositivo NUCLEO-F429ZI, la toolchain Arm GNU y el perfil develop (o debug o release, de acuerdo a lo que se necesite).
+
+```console
+    mbed-tools configure --mbed-os-path lib/mbed-os -m NUCLEO_F429ZI -b develop -t GCC_ARM -o build/develop
+```
+
+4. Generar el buildsystem del proyecto. En caso de necesitar utilizar un entorno virtual de python definir el directorio raíz de la instalación de python agregando la opción -DPython3_ROOT_DIR=path/to/venv/bin.
+
+```console
+    cmake -S . -B build/develop
+```
+
+5. Construir el proyecto. Como resultado se obtiene el binario del proyecto en build/develop/beer-carbonation-system.bin.
+
+```console
+    cmake --build build/develop -j 4
+```
+
+En caso de modificarse el archivo mbed_app.json se debe repetir del paso 3 en adelante. Para todo el resto de modificaciones basta con repetir los pasos 4 y 5. 
