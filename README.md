@@ -105,7 +105,7 @@ Comandos permitidos:
 
 #### Diagrama UML de clases
 
-![UML](doc/UML.png)
+![UML](doc/architecture/uml.png)
 
 
 #### Diagramas de estados
@@ -113,11 +113,11 @@ A continuación se muestran los principales diagramas de estados de las clases.
 
 La clase CarbonationRecipe permite el control del estado de la receta de carbonatación implementando la siguiente máquina de estados:
 
-![CarbonationRecipe](doc/CarbonationRecipe.png)
+![CarbonationRecipe-State-Diagram](doc/design/classes/CarbonationRecipe/recipe-state-diagram.png)
 
 Dentro del estado EXECUTING se encuentra la máquina de estados que implementa la receta por pasos:
 
-![CarbonationRecipe-ExecutingSteps](doc/CarbonationRecipe-ExecutingSteps.png)
+![CarbonationRecipe-Step-Diagram](doc/design/classes/CarbonationRecipe/recipe-state-diagram.png)
 
 De igual manera las clases CO2Dissolver y CO2Injector implementan la misma máquina de estados para controlar el equipo de acuerdo al estado de la receta pero cada una implementa en el estado EXECUTING el algoritmo correspondiente.
 
@@ -139,13 +139,13 @@ La documentación del código se ha generado con Doxygen.
 Prerequisistos:
 * Doxygen >= 1.9.4
 
-Para generar la documentación, ejectuar:
+Para generar la documentación, ejecutar:
 
 ```console
     doxygen Doxyfile 
 ```
 
-Los archivos generados se encuentran en la carpeta `doc/doxygen`. Abrir el archivo `index.html` de la carpeta ``doc/doxygen/html` para visualizar la documentación mediante el navegador web.
+Los archivos generados se encuentran en la carpeta `doc/doxygen`. Para visualizar la documentación en el navegador web, abrir el archivo `index.html` en `doc/doxygen/html`.
 
 ### Compilación 
 Prerequisitos:
@@ -174,13 +174,13 @@ Prerequisitos:
     mbed-tools configure --mbed-os-path lib/mbed-os -m NUCLEO_F429ZI -b develop -t GCC_ARM -o build/develop
 ```
 
-4. Generar el build system del proyecto. En caso de necesitar utilizar un entorno virtual de python definir el directorio raíz de la instalación agregando la opción -DPython3_ROOT_DIR=path/to/venv/bin al comando:
+4. Generar el build system del proyecto. En caso de necesitar utilizar un entorno virtual de python definir el directorio raíz de la instalación agregando la opción `-DPython3_ROOT_DIR=path/to/venv/bin` al comando.
 
 ```console
     cmake -S . -B build/develop
 ```
 
-5. Construir el proyecto. Como resultado se obtiene el binario del proyecto en build/develop/beer-carbonation-system.bin.
+5. Construir el proyecto. Como resultado se obtiene el binario del proyecto `beer-carbonation-system.bin` en `build/develop`.
 
 ```console
     cmake --build build/develop -j 4
@@ -200,4 +200,4 @@ y luego para construir el proyecto:
     make
 ```
 
-El binario producido se encuentra en `build/develop/beer-carbonation-system.bin`.
+El binario producido `beer-carbonation-system.bin` se encuentra en `build/develop`.
