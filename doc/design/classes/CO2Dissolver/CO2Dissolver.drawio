@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.3">
+  <diagram name="Flowchart" id="wDC12SGz_vppus-zOOGi">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rsjltrNW0xTfbquBhefI-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rsjltrNW0xTfbquBhefI-2" target="rsjltrNW0xTfbquBhefI-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-2" value="IDLE" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="505" y="84" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rsjltrNW0xTfbquBhefI-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="555" y="304" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-4" value="Start MAA1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="495" y="194" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-5" value="COMPLETE" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="505" y="684" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="rsjltrNW0xTfbquBhefI-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="554.9999999999998" y="273.9999999999999" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="740" y="469" />
+              <mxPoint x="740" y="274" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-7" value="no" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="rsjltrNW0xTfbquBhefI-6">
+          <mxGeometry x="-0.8759" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rsjltrNW0xTfbquBhefI-10" target="rsjltrNW0xTfbquBhefI-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-9" value="yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="rsjltrNW0xTfbquBhefI-8">
+          <mxGeometry x="-0.2467" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-10" value="|Current sample - Last sample|&lt;div&gt;&amp;lt; settling_threshold&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="430" y="414" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-11" value="Sample BPA1 with sampling_time" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="467.5" y="304" width="175" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rsjltrNW0xTfbquBhefI-13" target="rsjltrNW0xTfbquBhefI-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-13" value="Stop MAA1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="495" y="574" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rsjltrNW0xTfbquBhefI-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="rsjltrNW0xTfbquBhefI-11" target="rsjltrNW0xTfbquBhefI-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="554.93" y="364" as="sourcePoint" />
+            <mxPoint x="554.93" y="414" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -15,7 +15,11 @@ El diagrama P&ID del sistema de carbonatación se muestra a continuación.
 
 El sistema consiste en un tanque de CO2 conectado a un barril de cerveza a través de la válvula solenoide QMB1. El barril se encuentra montado sobre una criba vibratoria que se acciona mediante el motor eléctrico MAA1. La presión interna del barril se mide con el sensor BPA1.
 
-![P&ID](doc/P&ID.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/architecture/process-and-instrumentation-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/architecture/process-and-instrumentation-diagram-light.png"> 
+    <img alt="Shows the recipe state diagram." src="doc/architecture/process-and-instrumentation-diagram-light.png">
+</picture>
 
 ### Fases del proceso
 * Inyección de CO2: Accionando la válvula solenoide (normalmente cerrada) (QMB1) se inyecta CO2 al barril de cerveza. La cantidad de gas inyectado se mide a través de la presión del barril (BPA1).
@@ -47,10 +51,13 @@ El operador controla el estado de la receta a través de los siguientes comandos
 
 Los comandos se encuentran ligados con los estados de la receta de acuerdo al siguiente diagrama:
 
-![CR](doc/CarbonationRecipe.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CarbonationRecipe/recipe-step-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CarbonationRecipe/recipe-step-diagram-light.png"> 
+    <img alt="Shows the recipe state diagram." src="doc/design/classes/CarbonationRecipe/recipe-step-diagram-light.png">
+</picture>
 
 ### Alarmas y acciones de protección
-
 * BPA1 > 4 bar: se detiene el proceso, se indica la alarma en el HMI, se activa la sirena y se envía un mensaje a la computadora de supervisión.
 
 ## Arquitectura de control
@@ -109,7 +116,11 @@ Comandos permitidos:
 
 #### Diagrama UML de clases
 
-![UML](doc/architecture/uml.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/architecture/uml-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/architecture/uml-light.png"> 
+    <img alt="Shows the UML class diagram of the architecture." src="doc/architecture/uml-light.png">
+</picture>
 
 #### Diagramas de estados
 A continuación se muestran los principales diagramas de estados de las clases.
@@ -137,16 +148,24 @@ Para CO2Injector se implementa:
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CO2Injector/flowchart-diagram-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CO2Injector/flowchart-diagram-light.png"> 
-    <img alt="Shows the state diagram of the CO2Injector class." src="doc/design/classes/CO2Injector/flowchart-diagram-light.png">
+    <img alt="Shows the flowchart of the CO2Injector phase logic." src="doc/design/classes/CO2Injector/flowchart-diagram-light.png">
 </picture>
 
 Para CO2Dissolver se implementa:
 
-![CO2Dissolver](doc/CO2Dissolver.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CO2Dissolver/flowchart-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CO2Dissolver/flowchart-diagram-light.png"> 
+    <img alt="Shows the flowchart of the CO2Dissolver phase logic." src="doc/design/classes/CO2Dissolver/flowchart-diagram-light.png">
+</picture>
 
 Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuadores. Dado que se trata de controles on/off ambos módulos implementan la siguiente máquina de estados:
 
-![SolenoidValve](doc/SolenoidValve.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/SolenoidValve/state-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
+    <img alt="Shows the SolenoidValve state diagram." src="doc/design/classes/SolenoidValve/state-diagram-light.png">
+</picture>
 
 ### Documentación
 La documentación del código se ha generado con Doxygen.
