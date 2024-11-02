@@ -56,7 +56,11 @@ Los comandos se encuentran ligados con los estados de la receta de acuerdo al si
 ## Arquitectura de control
 A continuación se muestra un esquemático de los módulos de hardware del sistema y se procede con las especificaciones de los mismos.
 
-![HA](doc/Hardware_architecture.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/architecture/hardware-architecture-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/architecture/hardware-architecture-light.png"> 
+    <img alt="Shows the hardware architecture." src="doc/architecture/hardware-architecture-light.png">
+</picture>
 
 ### Microcontrolador
 El control del sistema se realiza con una placa NUCLEO-F429ZI que posee el microcontrolador STM32F249ZI.
@@ -120,13 +124,21 @@ La clase CarbonationRecipe permite el control del estado de la receta de carbona
 
 Dentro del estado EXECUTING se encuentra la máquina de estados que implementa la receta por pasos:
 
-![CarbonationRecipe-Step-Diagram](doc/design/classes/CarbonationRecipe/recipe-state-diagram.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CarbonationRecipe/recipe-step-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CarbonationRecipe/recipe-step-diagram-light.png"> 
+    <img alt="Shows the step state diagram of the CarbonationRecipe class." src="doc/design/classes/CarbonationRecipe/recipe-step-diagram-light.png">
+</picture>
 
 De igual manera las clases CO2Dissolver y CO2Injector implementan la misma máquina de estados para controlar el equipo de acuerdo al estado de la receta pero cada una implementa en el estado EXECUTING el algoritmo correspondiente.
 
 Para CO2Injector se implementa:
 
-![CO2Injector](doc/CO2Injector.png)
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CO2Injector/flowchart-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CO2Injector/flowchart-diagram-light.png"> 
+    <img alt="Shows the state diagram of the CO2Injector class." src="doc/design/classes/CO2Injector/flowchart-diagram-light.png">
+</picture>
 
 Para CO2Dissolver se implementa:
 
