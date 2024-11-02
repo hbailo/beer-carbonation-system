@@ -164,7 +164,7 @@ Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuado
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/SolenoidValve/state-diagram-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
-    <img alt="Shows the SolenoidValve state diagram." src="doc/design/classes/SolenoidValve/state-diagram-light.png">
+    <img alt="Shows the SolenoidValve state diagram." src="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
 </picture>
 
 ### Documentación
