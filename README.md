@@ -134,36 +134,47 @@ Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuado
 ![SolenoidValve](doc/SolenoidValve.png)
 
 ### Documentación
-El código se encuentra documentado con doxygen. Ejecutar doxygen Doxyfile para generar la documentación en la carpeta doc.
+La documentación del código se ha generado con Doxygen.
+
+Prerequisistos:
+* Doxygen >= 1.9.4
+
+Para generar la documentación, ejectuar:
+
+```console
+    doxygen Doxyfile 
+```
+
+Los archivos generados se encuentran en la carpeta `doc/doxygen`. Abrir el archivo `index.html` de la carpeta ``doc/doxygen/html` para visualizar la documentación mediante el navegador web.
 
 ### Compilación 
 Prerequisitos:
 * Git >= 2.39
 * CMake >= 3.19
 * Python >= 3.6
-* Mbed CLI 2
+* Mbed CLI 2 (mbed-tools) >= 7.59
 * Arm GNU toolchain >= 12.2
 
-1. Clonar el repositorio.
+1. Clonar el repositorio:
 
 ```console
     git clone https://github.com/hbailo/beer-carbonation-system.git
 ```
 
-2. Inicializar y actualizar la librería mbed-os configurada como submodulo del repositorio.
+2. Inicializar y actualizar la librería mbed-os configurada como submodulo del repositorio:
 
 ```console
     git submodule init
     git submodule update --depth 1
 ```
 
-3. Configurar el proyecto de Mbed con el dispositivo NUCLEO-F429ZI, la toolchain Arm GNU y el perfil develop (o debug o release, de acuerdo a lo que se necesite).
+3. Configurar el proyecto de Mbed con el dispositivo NUCLEO-F429ZI, la toolchain Arm GNU y el perfil develop (o debug o release, de acuerdo a lo que se necesite):
 
 ```console
     mbed-tools configure --mbed-os-path lib/mbed-os -m NUCLEO_F429ZI -b develop -t GCC_ARM -o build/develop
 ```
 
-4. Generar el buildsystem del proyecto. En caso de necesitar utilizar un entorno virtual de python definir el directorio raíz de la instalación de python agregando la opción -DPython3_ROOT_DIR=path/to/venv/bin.
+4. Generar el build system del proyecto. En caso de necesitar utilizar un entorno virtual de python definir el directorio raíz de la instalación agregando la opción -DPython3_ROOT_DIR=path/to/venv/bin al comando:
 
 ```console
     cmake -S . -B build/develop
@@ -176,3 +187,17 @@ Prerequisitos:
 ```
 
 En caso de modificarse el archivo mbed_app.json se debe repetir del paso 3 en adelante. Para todo el resto de modificaciones basta con repetir los pasos 4 y 5. 
+
+En el archivo Makefile se encuentra un script para simplificar el proceso reiterativo de compilación en caso de contar con el programa Make. Para configurar el proyecto, ejecute:
+
+```console
+    make configure
+```
+
+y luego para construir el proyecto:
+
+```console
+    make
+```
+
+El binario producido se encuentra en `build/develop/beer-carbonation-system.bin`.
