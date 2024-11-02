@@ -1,51 +1,64 @@
 #ifndef CARBONATOR__H
 #define CARBONATOR__H
 
+#include "CO2Dissolver.h"
+#include "CO2Injector.h"
 #include "mbed.h"
 #include "OnOffMotor.h"
+#include "PhaseState.h"
 #include "PressureTransmitter.h"
 #include "SolenoidValve.h"
 
-
 /**
- *  @brief Carbonator equipment module.
+ *  @brief Carbonator unit.
  */
 class Carbonator
 {
 
 public:
+  /** @brief Initializes carbonator unit. */
+  Carbonator();
   
-  Carbonator() ;
+  /** @brief Starts the "Inject CO2" phase. */
+  PhaseState injectCO2(float pressure_stepoint);
+
+  /** @brief Returns the "Inject CO2" phase state. */
+  PhaseState getInjectCO2PhaseState();
+
+  /** @brief Starts the "Dissolve CO2" phase. */
+  PhaseState dissolveCO2();
+
+  /** @brief Returns the "Dissolve CO2" phase state. */
+  PhaseState getDissolveCO2PhaseState();
   
-  /** \brief Injects CO2 up to pressure. */
-  bool injectCO2(float pressure) ;
+  /** @brief Holds the unit. */
+  void hold();
 
-  /** \brief Dissolves CO2 in the beer. */
-  bool dissolveCO2() ;
+  /** @brief Stops the unit. */
+  void stop();
 
-  /** \brief Stops the equipment. */
-  void stop() ;
+  /** @brief Resumes the unit. */
+  void resume();
 
-  /** \brief Returns the QMB1 pressure.*/
-  float getBPA1() noexcept ;
+  /** @brief Resets the unit. */
+  void reset();
+
+  /** @brief Updates the recipe. */
+  void update();
+  
+  /** @brief Returns the beer barrel pressure. */
+  float getBPA1();
 
 private:
+  /** @brief Beer barrel pressure transmitter. */
+  PressureTransmitter bpa1;
+
+  /** @brief CO2 Injector. */
+  CO2Injector co2_injector;
+
+  /** @brief CO2 dissolver. */
+  CO2Dissolver co2_dissolver;
   
-  void execute() ;
-
-  /** CO2 shut off valve. */
-  SolenoidValve qmb1 ;
-
-  /** Agitator electric motor. */
-  OnOffMotor maa1 ;
-
-  /** Beer barrel pressure transmitter. */
-  PressureTransmitter bpa1 ;
-
-  /** Members used in dissolverCO2 */
-  Timer timer ;
-  float last_bpa1_sample = 0.0 ;
-  
-} ;
+};
   
 #endif

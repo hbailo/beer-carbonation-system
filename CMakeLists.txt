@@ -1,29 +1,28 @@
-# Copyright (c) 2024 ARM Limited. All rights reserved.
-# SPDX-License-Identifier: Apache-2.0
-
 cmake_minimum_required(VERSION 3.19.0)
 
-set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/mbed-os CACHE INTERNAL "")
+## Mbed configuration
+set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/mbed-os CACHE INTERNAL "")
 set(MBED_CONFIG_PATH ${CMAKE_CURRENT_BINARY_DIR} CACHE INTERNAL "")
-set(APP_TARGET Beer-Carbonation-System)
 
 include(${MBED_PATH}/tools/cmake/app.cmake)
 
-project(${APP_TARGET})
+## App configuration
+project(beer-carbonation-system)
 
 add_subdirectory(${MBED_PATH})
 
+set(APP_TARGET beer-carbonation-system)
+
 include_directories(include)
 
-file(GLOB all_srcs "${PROJECT_SOURCE_DIR}/include/*.h"
-                   "${PROJECT_SOURCE_DIR}/include/*.hpp"
-        	   "${PROJECT_SOURCE_DIR}/src/*.cpp"
-        	   "${PROJECT_SOURCE_DIR}/src/*.c")	
+file(GLOB app_target_sources
+  "${PROJECT_SOURCE_DIR}/include/*.h"
+  "${PROJECT_SOURCE_DIR}/src/*.cpp"
+)
 
-add_executable(${APP_TARGET}
-	       ${all_srcs})
+add_executable(${APP_TARGET} ${app_target_sources})
 
-target_link_libraries(${APP_TARGET} mbed-os)
+target_link_libraries(${APP_TARGET} PRIVATE mbed-os)
 
 mbed_set_post_build(${APP_TARGET})
 

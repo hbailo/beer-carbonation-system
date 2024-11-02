@@ -1,121 +1,134 @@
 #include "Carbonator.h"
-#include <cmath>
-
-
-using namespace std::chrono ;
+#include "mbed.h"
+#include "PhaseState.h"
 
 
 Carbonator::Carbonator()
-  : qmb1(D2), maa1(D3), bpa1(A1)
+  : bpa1(A0), co2_injector(bpa1), co2_dissolver(bpa1)
 {
   
 }
 
-
 /**
+ *  This method is the unit phase interface to the "Inject CO2" equipment phase.
+ *  Before forwarding the command it checks the interlock logic of the unit.
+ *  
  *  @param[in] pressure the desired pressure in bar.
  *
- *  This method keeps the solenoid valve QMB1 open until the specified
- *  pressure is reached in BPA1. Then closes QMB1.
- *
- *  @return true if the specified pressure was reached, otherwise false.
+ *  @return the "Inject CO2" phase state.
  */
-bool Carbonator::injectCO2(float pressure)
+PhaseState Carbonator::injectCO2(float pressure_setpoint)
 {
-  
-  bool done = bpa1 > pressure ;
 
-  if (done) {
-    qmb1.off_cmd = true ;
-  } else {
-    qmb1.on_cmd = true ;
-  }
+  // TODO: Add unit interlock logic.
 
-  execute() ;
-
-  return done ;
+  return co2_injector.injectCO2(pressure_setpoint);
   
 }
-
 
 /**
- *  This method keeps the agitator on until the CO2 dissolves completely.
- *  Complete dissolution is determined when the current sample and the sample
- *  from one second ago differ by less than 10 mbar.
- *
- *  @return true if the specified pressure was reached, otherwise false.
- *
- *  @todo Fix pressure threshold and sampling period hardcoding.
+ *  @return the "Inject CO2" phase state.
  */
-bool Carbonator::dissolveCO2()
+PhaseState Carbonator::getInjectCO2PhaseState()
 {
 
-  bool done ;
+  // TODO: Add unit interlock logic.
 
-  timer.start() ;
-
-  if (duration<float>{timer.elapsed_time()}.count() > 1) {
-    float current_bpa1_sample = bpa1 ;
-
-    done = abs(current_bpa1_sample - last_bpa1_sample) < 0.01 ;
-
-    if (done) {
-      maa1.off_cmd = true ;
-      last_bpa1_sample = 0 ;
-      timer.stop() ;
-      timer.reset() ;
-      
-    } else {
-      maa1.on_cmd = true ;
-      last_bpa1_sample = current_bpa1_sample ;
-      timer.reset() ;
-    }
-    
-  } else {
-    done = false ;
-  }
-
-  execute() ;
-
-  return done ;
+  return co2_injector.getPhaseState();
   
 }
 
+/**
+ *  This method is the unit phase interface to the "Dissolve CO2" equipment phase.
+ *  Before forwarding the command it checks the interlock logic of the unit.
+ *
+ *  @return the "Dissolve CO2" phase state.
+ */
+PhaseState Carbonator::dissolveCO2()
+{
 
-/** */
+  // TODO: Add unit interlock logic.
+
+  return co2_dissolver.dissolveCO2();
+  
+}
+
+/**
+ *  @return the "Dissolve CO2" phase state.
+ */
+PhaseState Carbonator::getDissolveCO2PhaseState()
+{
+
+  // TODO: Add unit interlock logic.
+
+  return co2_dissolver.getPhaseState();
+  
+}
+
+/**
+ *  Forwards the stop command to the equipment phases.
+ *  @return STOPPED if all equipment phases are stopped, STOPPING otherwise. 
+ */
 void Carbonator::stop()
 {
 
-  qmb1.protection_off_cmd = true ;
-  maa1.protection_off_cmd = true ;
-
-  execute() ;
+  co2_dissolver.stop();
+  co2_injector.stop();
   
 }
 
-
 /**
- *  @return QMB1 pressure in bar.
+ *  Forwards the hold command to the equipment phases.
+ *  @return HELD if all equipment phases are stopped, HOLDING otherwise.
  */
-float Carbonator::getBPA1() noexcept
+void Carbonator::hold()
 {
 
-  return bpa1 ;
+  co2_dissolver.hold();
+  co2_injector.hold();
+
+}
+
+/**
+ *  Forwards the resume command to the equipment phases.
+ *  @return EXECUTING if all equipment phases are resumed, RESUMMING otherwise.
+ */
+void Carbonator::resume()
+{
+
+  co2_dissolver.resume();
+  co2_injector.resume();
   
 }
 
-
 /**
- *  @todo complete doc.
+ *
  */
-void Carbonator::execute()
+void Carbonator::reset()
 {
 
-  // QMB1 interlock logic
+  co2_dissolver.reset();
+  co2_injector.reset();
 
-  // MAA1 interlock logic
+}
 
-  qmb1.execute() ;
-  maa1.execute() ;
+/**
+ *
+ */
+void Carbonator::update()
+{
+
+  co2_dissolver.update();
+  co2_injector.update();
+
+}
+
+/**
+ *  @return beer barrel pressure in bar.
+ */
+float Carbonator::getBPA1()
+{
+
+  return bpa1;
   
 }

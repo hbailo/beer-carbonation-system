@@ -1,19 +1,15 @@
-#include "mbed.h"
-#include "CoordinationControl.h"
-
+#include "BeerCarbonationSystem.h"
 
 /**
- * \brief Main program.
- *
- * 
+ * @brief Main program sweep (cycle)
  */
 int main()
 {
 
-  CoordinationControl coordination_control;
+  BeerCarbonationSystem beer_carbonation_system ;
   
   while (true) {
-    coordination_control.execute() ;
+    beer_carbonation_system.update() ;
   }
   
 }
