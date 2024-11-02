@@ -115,10 +115,8 @@ La clase CarbonationRecipe permite el control del estado de la receta de carbona
 
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CarbonationRecipe/recipe-state-diagram-dark.png">
-<img alt="Shows the state diagram of the CarbonationRecipe class." src=doc/design/classes/CarbonationRecipe/recipe-state-diagram-light.png">
+    <img alt="Shows the state diagram of the CarbonationRecipe class." src=doc/design/classes/CarbonationRecipe/recipe-state-diagram-light.png">
 </picture>
-
-![CarbonationRecipe-State-Diagram](doc/design/classes/CarbonationRecipe/recipe-state-diagram.png)
 
 Dentro del estado EXECUTING se encuentra la máquina de estados que implementa la receta por pasos:
 
