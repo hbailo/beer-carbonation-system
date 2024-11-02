@@ -52,9 +52,9 @@ El operador controla el estado de la receta a través de los siguientes comandos
 Los comandos se encuentran ligados con los estados de la receta de acuerdo al siguiente diagrama:
 
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CarbonationRecipe/recipe-step-diagram-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CarbonationRecipe/recipe-step-diagram-light.png"> 
-    <img alt="Shows the recipe state diagram." src="doc/design/classes/CarbonationRecipe/recipe-step-diagram-light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CarbonationRecipe/recipe-state-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CarbonationRecipe/recipe-state-diagram-light.png"> 
+    <img alt="Shows the recipe state diagram." src="doc/design/classes/CarbonationRecipe/recipe-state-diagram-light.png">
 </picture>
 
 ### Alarmas y acciones de protección
