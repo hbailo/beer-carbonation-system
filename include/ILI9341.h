@@ -9,11 +9,12 @@
  *
  *  This class use the 4 wire SPI communication interface, so external pins
  *  IM[3:0] = [IM3, IM2, IM1, IM0] = ['1' '1' '1' '0'].
- *  
+ *
  *  @note In the official documentation the pins are labeled in a manner
  *  inconsistent with the SPI protocol, the following mapping was performed to
  *  improve understanding:
  *  - SDA = SDI (originally MOSI)
+ *  - SDO = SDO (originally MISO)
  *  - SCL = SCKL
  *  - CSX = CS
  *
@@ -36,7 +37,7 @@ public:
   using Color = Color16Bits;
 
   /** @brief Initializes the ILI9341 hardware driver. */
-  ILI9341(PinName sdo_pín, PinName sdi_pin, PinName sckl_pin, PinName cs_pin,
+  ILI9341(PinName mosi_pín, PinName miso_pin, PinName sckl_pin, PinName cs_pin,
           PinName dcx_pin, PinName resx_pin, PinName backlight_pin);
 
   /** @brief Sets pixel with color. */
