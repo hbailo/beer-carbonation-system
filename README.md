@@ -171,9 +171,9 @@ Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuado
 La clase HMI se encarga de la interacción con el operador a través del display táctil. Para la gestión de la interfaz táctil implementa la máquina de estados del diagrama que se muestra a continuación. Las transiciones se basa en los eventos de pantalla presionada, pantalla liberada e interacción procesada.
 
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/SolenoidValve/state-diagram-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
-    <img alt="Shows the SolenoidValve state diagram." src="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/HMI/touch-state-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/HMI/touch-state-diagram-light.png"> 
+    <img alt="Shows the HMI touch state diagram." src="doc/design/classes/HMI/touch-state-diagram-light.png"> 
 </picture>
 
 ### Documentación
