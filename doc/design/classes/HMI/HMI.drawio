@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.3">
+  <diagram name="Touch state diagram" id="wDC12SGz_vppus-zOOGi">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-4" value="" style="ellipse;html=1;shape=startState;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;direction=south;fillStyle=solid;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="255" y="323" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-5" value="IDLE" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+          <mxGeometry x="365" y="308" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-6" style="edgeStyle=orthogonalEdgeStyle;html=1;labelBackgroundColor=none;endArrow=open;endSize=8;fontFamily=Verdana;fontSize=12;align=left;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="E6CyZGARjkXO0ZdUDtMX-4" target="E6CyZGARjkXO0ZdUDtMX-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="340" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="E6CyZGARjkXO0ZdUDtMX-10" target="E6CyZGARjkXO0ZdUDtMX-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-10" value="PRESSED" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+          <mxGeometry x="605" y="308" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-11" style="edgeStyle=orthogonalEdgeStyle;html=1;labelBackgroundColor=none;endArrow=open;endSize=8;fontFamily=Verdana;fontSize=12;align=left;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="E6CyZGARjkXO0ZdUDtMX-5" target="E6CyZGARjkXO0ZdUDtMX-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="505" y="328" as="sourcePoint" />
+            <mxPoint x="565" y="337.65999999999997" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-12" value="touch pressed event" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" connectable="0" vertex="1" parent="E6CyZGARjkXO0ZdUDtMX-11">
+          <mxGeometry x="-0.0199" relative="1" as="geometry">
+            <mxPoint x="-4" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="E6CyZGARjkXO0ZdUDtMX-29" target="E6CyZGARjkXO0ZdUDtMX-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-29" value="RELEASED" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+          <mxGeometry x="485" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-32" value="touch released event" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" connectable="0" vertex="1" parent="1">
+          <mxGeometry x="725.0006896551726" y="414" as="geometry" />
+        </mxCell>
+        <mxCell id="E6CyZGARjkXO0ZdUDtMX-34" value="touch processed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" connectable="0" vertex="1" parent="1">
+          <mxGeometry x="370.00068965517255" y="414" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

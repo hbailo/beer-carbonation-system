@@ -3,22 +3,37 @@
 #include "HMI.h"
 #include "ILI9341.h"
 #include "mbed.h"
+#include <cmath>
 #include <cstdint>
 #include <system_error>
 
 /**
- *
+ * Initializes the HMI system with references to the carbonation equipment 
+ * and the carbonation recipe, setting up the display and touch input drivers.
+ * 
+ * @param carbonator Reference to the Carbonator unit.
+ * @param carbonation_recipe Reference to the CarbonationRecipe being used.
  */
-HMI::HMI(Carbonator& carbonator, CarbonationRecipe& carbonation_recipe)
-  : carbonator(carbonator), carbonation_recipe(carbonation_recipe), ili9341(PB_5, PB_4, PB_3, PB_12, PC_7, PB_8, PA_15)
+HMI::HMI(Carbonator &carbonator, CarbonationRecipe &carbonation_recipe)
+    : carbonator(carbonator),
+      carbonation_recipe(carbonation_recipe),
+      ili9341(PB_5, PB_4, PB_3, PB_12, PC_7, PB_8, PA_15),
+      xpt2046(PE_14, PE_13, PE_12, PE_11, PE_15,
+          [this]() { handleOnTouchPressed(); },
+          [this]() { handleOnTouchReleased(); }),
+      touch_state(TouchState::IDLE)
+      
 {
 
   initHomeScreen();
   
 }
 
+
 /**
- *
+ * This function should be called periodically to refresh the display 
+ * and handle any user interactions. It updates the touch input state,
+ * checks for display updates, and ensures that the interface remains responsive.
  */
 void HMI::update()
 {
@@ -28,6 +43,15 @@ void HMI::update()
 }
 
 /**
+ *  Displays a character at the specified x and y coordinates with the 
+ *  chosen background color.
+ * 
+ *  @param c Character to display.
+ *  @param x X coordinate position in pixels.
+ *  @param y Y coordinate position in pixels.
+ *  @param font_color Color of the font.
+ *  @param background_color Color of the background.
+ * 
  *  @todo Fix font size hardcoding.
  */
 void HMI::print(char c, uint16_t x, uint16_t y, ILI9341::Color text_color, ILI9341::Color background_color)
@@ -60,6 +84,15 @@ void HMI::print(char c, uint16_t x, uint16_t y, ILI9341::Color text_color, ILI93
 }
 
 /**
+ *  Displays a string starting at the specified x and y coordinates
+ *  with the chosen background color.
+ * 
+ *  @param str String to display.
+ *  @param x X coordinate position in pixels.
+ *  @param y Y coordinate position in pixels.
+ *  @param font_color Color of the font.
+ *  @param background_color Color of the background.
+ * 
  *  @todo Fix font size hardcoding.
  */
 void HMI::print(const char* str, uint16_t x, uint16_t y, ILI9341::Color text_color, ILI9341::Color background_color)
@@ -75,13 +108,71 @@ void HMI::print(const char* str, uint16_t x, uint16_t y, ILI9341::Color text_col
 }
 
 /**
- *
+ *  Touch point coordinates are scaled to screen pixels.
+ *  @note Fix scaling hardcoding.
+ */
+void HMI::updateTouchPoint()
+{
+
+  uint16_t x, y;
+  
+  xpt2046.getTouchPoint(x, y);
+
+  float mx = -0.085606;
+  float bx = 336.784730;
+
+  touch_point.x = lround(x * mx + bx);
+  
+  float my = 0.065977;
+  float by = -13.853627;
+
+  touch_point.y = lround(y * my + by);
+  
+}
+
+void HMI::handleOnTouchPressed()
+{
+
+  switch (touch_state) {
+    
+  case TouchState::IDLE:
+    touch_state = TouchState::PRESSED;
+    break;
+
+  case TouchState::PRESSED:
+  case TouchState::RELEASED:
+    break;
+    
+  }
+  
+}
+
+void HMI::handleOnTouchReleased()
+{
+
+  switch (touch_state) {
+    
+  case TouchState::PRESSED:
+    touch_state = TouchState::RELEASED;
+    break;
+
+  case TouchState::IDLE:
+  case TouchState::RELEASED:
+    break;
+    
+  }
+    
+}
+
+/**
+ *  @todo Fix buttons hardcoding
  */
 void HMI::initHomeScreen()
 {
 
   ili9341.fillScreen(ILI9341::Color::BLACK);
-  
+
+  // Process cell status
   print("Recipe state: ", 0, 0, ILI9341::WHITE, ILI9341::BLACK);
   print("Idle", 112, 0, ILI9341::WHITE, ILI9341::BLACK);
 
@@ -91,7 +182,7 @@ void HMI::initHomeScreen()
   print("?????", 192, 48, ILI9341::WHITE, ILI9341::BLACK);
   print(" bar", 232, 48, ILI9341::WHITE, ILI9341::BLACK);
 
-
+  // Command buttons
   ili9341.drawRectangle(18, 114, 85, 143, ILI9341::YELLOW);
   print("Start", 32, 121, ILI9341::WHITE, ILI9341::BLACK);
 
@@ -115,6 +206,7 @@ void HMI::initHomeScreen()
 void HMI::updateHomeScreen()
 {
 
+  updateHomeScreenTouch();
   updateBarrelPressureText();
   updateRecipeStateText();
   updateRecipeStepText();
@@ -220,5 +312,63 @@ void HMI::updateAlarmIndicator()
 
   // print("Alarm: Barrel overpressure (BPA1)", 0, 24, ILI9341::WHITE,
   //       ILI9341::RED);
+}
+
+/**
+ * This function updates and processes the current touch interaction state 
+ * specifically for the home screen.
+ *  @todo Fix buttons hardcoding
+ */ 
+void HMI::updateHomeScreenTouch()
+{
+
+  switch (touch_state) {
+
+  case TouchState::IDLE:
+    break;
+
+  case TouchState::PRESSED:
+    updateTouchPoint();
+    break;
+
+  case TouchState::RELEASED:
+
+    // Start button press
+    if (touch_point.x >= 18  and touch_point.x <= 85 and
+        touch_point.y >= 114 and touch_point.y <= 143) {
+      carbonation_recipe.start();
+    }
+    
+    // Hold button press
+    if (touch_point.x >= 108 and touch_point.x <= 175 and
+        touch_point.y >= 114 and touch_point.y <= 143) {
+      carbonation_recipe.hold();
+    }
+
+    // Stop button press
+    if (touch_point.x >= 198 and touch_point.x <= 266 and
+        touch_point.y >= 144 and touch_point.y <= 173) {
+      carbonation_recipe.stop();
+    }
+
+    // Resume button press
+    if (touch_point.x >= 18  and touch_point.x <= 85 and
+        touch_point.y >= 174 and touch_point.y <= 203) {
+      carbonation_recipe.resume();
+    }
+
+    // Reset button press
+    if (touch_point.x >= 108 and touch_point.x <= 175 and
+        touch_point.y >= 174 and touch_point.y <= 203) {
+      carbonation_recipe.reset();
+    }
+
+    // TODO: Add alarm ack button
+    
+    touch_state = TouchState::IDLE;
+    
+    break;
+    
+  }
   
 }
