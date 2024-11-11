@@ -248,4 +248,5 @@ El binario producido `beer-carbonation-system.bin` se encuentra en `build/develo
 
 ## Referencias
 [1] International Electrotechnical Commission. *IEC 81346-2:2019: Industrial systems, installations and equipment and industrial products — Structuring principles and reference designations — Part 2: Classification of objects and codes for classes.* (IEC, 2019)
+
 [2] Brandl, Dennis. *Design Patterns for Flexible Manufacturing.* (ISA, 2007)
