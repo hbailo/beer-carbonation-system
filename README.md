@@ -2,7 +2,6 @@
 
 ## TODO:
 * Implementar soporte para alarmas.
-* Implementar soporte para botones táctiles del HMI.
 
 ## Alumno
 Hernán Leandro Bailo
@@ -11,7 +10,7 @@ Hernán Leandro Bailo
 Desarrollar un sistema de carbonatación de cerveza en barriles.
 
 ## Descripción del proceso
-El diagrama P&ID del sistema de carbonatación se muestra a continuación.
+El diagrama P&ID del sistema de carbonatación se muestra a continuación. Los tags utilizados están en formato IEC81346 [1].
 
 El sistema consiste en un tanque de CO2 conectado a un barril de cerveza a través de la válvula solenoide QMB1. El barril se encuentra montado sobre una criba vibratoria que se acciona mediante el motor eléctrico MAA1. La presión interna del barril se mide con el sensor BPA1.
 
@@ -39,7 +38,7 @@ A continuación se describen los pasos de la receta de carbonatación implementa
 Nota: en los pasos 2, 4 y 6 la condición BPA1 > 1 bar detiene la receta dado que no debería producirse si el sistema funciona adecuadamente. Se debe revisar el equipo.
 
 ### Operación
-La operación del sistema se basa en la ejecución de la receta de carbonatación.
+La operación del sistema se basa en la ejecución de la receta de carbonatación, siguiendo el patrón de diseño de manufactura flexible ISA S88 [2].
 
 El operador controla el estado de la receta a través de los siguientes comandos:
 
@@ -76,14 +75,16 @@ El control del sistema se realiza con una placa NUCLEO-F429ZI que posee el micro
 * DIGITAL OUT 1: Señal de actuación de la válvula solenoide QMB1.
 * DIGITAL OUT 2: Señal de actuación del motor MAA1 de la criba vibratoria.
 * DIGITAL OUT 3: Señal de actuación de la sirena.
+* DIGITAL IN  1: Señal de display del HMI presionado. (XPT2046).
 * ANALOG IN 1: Medición de presión del sensor BPA1.
 * UART: Comunicación con la computadora de supervisión.
-* SPI: Comunicación con el HMI.
+* SPI 1: Comunicación con el driver del display del HMI (ILI9341).
+* SPI 2: Comunicación con el driver del touch del HMI (XPT2046).
 
 ### HMI
 El operador puede monitorear y controlar el proceso desde el panel táctil.
 
-La conexión con el microcontrolador se realiza a través de SPI. El LCD se controla a través del driver ILI9341.
+La conexión con el microcontrolador se realiza a través de SPI. El LCD se controla a través del driver ILI9341 y la interfaz táctil con el driver XPT2046.
 
 Se visualiza en el HMI:
 * Estado actual de la receta.
@@ -167,6 +168,14 @@ Las clases OnOffMotor y SolenoidValve son los módulos de control de los actuado
     <img alt="Shows the SolenoidValve state diagram." src="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
 </picture>
 
+La clase HMI se encarga de la interacción con el operador a través del display táctil. Para la gestión de la interfaz táctil implementa la máquina de estados del diagrama que se muestra a continuación. Las transiciones se basa en los eventos de pantalla presionada, pantalla liberada e interacción procesada.
+
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/SolenoidValve/state-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
+    <img alt="Shows the SolenoidValve state diagram." src="doc/design/classes/SolenoidValve/state-diagram-light.png"> 
+</picture>
+
 ### Documentación
 La documentación del código se ha generado con Doxygen.
 
@@ -235,3 +244,8 @@ y luego para construir el proyecto:
 ```
 
 El binario producido `beer-carbonation-system.bin` se encuentra en `build/develop`.
+
+
+## Referencias
+[1] International Electrotechnical Commission. *IEC 81346-2:2019: Industrial systems, installations and equipment and industrial products — Structuring principles and reference designations — Part 2: Classification of objects and codes for classes.* (IEC, 2019)
+[2] Brandl, Dennis. *Design Patterns for Flexible Manufacturing.* (ISA, 2007)
