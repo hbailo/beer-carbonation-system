@@ -12,8 +12,8 @@
  *  @note In the official documentation the pins are labeled in a manner
  *  inconsistent with the SPI protocol, the following mapping was performed to
  *  improve understanding:
- *  - DOUT = SDO (originally MISO) 
- *  - DIN  = SDI (originally MOSI)
+ *  - DOUT = SDO (MISO) 
+ *  - DIN  = SDI (MOSI)
  *  - DCLK = SCKL
  *  
  *  References:
@@ -28,7 +28,7 @@ public:
   /** @brief Returns the touch point location as (x, y) coordinates, measured in LSB (Least Significant Bit) counts. */
   void getTouchPoint(uint16_t& x, uint16_t& y);
   
-  /** @brief Checks if the screen is currently being touched. */
+  /** @brief Checks if the screen is currently being pressed. */
   bool isTouched();
   
 private:
@@ -38,7 +38,7 @@ private:
   /** @brief SPI chip select signal. */
   DigitalOut cs;
 
-  /** @brief Touch interrupt signal. @note Is active low and digital input must be floating.*/
+  /** @brief Touch interrupt signal. @note Is active low and digital input must be floating. */
   InterruptIn penirq;
   
   /** @brief Hardware commands. @note Each member is a Control Byte, see [1] section "Digital Interface". */

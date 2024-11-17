@@ -13,8 +13,8 @@
  *  @note In the official documentation the pins are labeled in a manner
  *  inconsistent with the SPI protocol, the following mapping was performed to
  *  improve understanding:
- *  - SDA = SDI (originally MOSI)
- *  - SDO = SDO (originally MISO)
+ *  - SDA = SDI (MOSI)
+ *  - SDO = SDO (MISO)
  *  - SCL = SCKL
  *  - CSX = CS
  *

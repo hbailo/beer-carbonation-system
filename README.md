@@ -10,7 +10,7 @@ Hernán Leandro Bailo
 Desarrollar un sistema de carbonatación de cerveza en barriles.
 
 ## Descripción del proceso
-El diagrama P&ID del sistema de carbonatación se muestra a continuación. Los tags utilizados están en formato IEC81346 [1].
+El diagrama P&ID del sistema de carbonatación se muestra a continuación. Los tags utilizados están en formato IEC 81346 [1].
 
 El sistema consiste en un tanque de CO2 conectado a un barril de cerveza a través de la válvula solenoide QMB1. El barril se encuentra montado sobre una criba vibratoria que se acciona mediante el motor eléctrico MAA1. La presión interna del barril se mide con el sensor BPA1.
 
