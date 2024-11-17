@@ -8,8 +8,8 @@
  * - 16 bits colors
  * - Memory access control: BGR to RGB.
  */
-ILI9341::ILI9341(PinName sdo_pin, PinName sdi_pin, PinName sckl_pin, PinName cs_pin, PinName dcx_pin, PinName resx_pin, PinName backlight_pin)
-  : spi(sdo_pin, sdi_pin, sckl_pin), cs(cs_pin, false), dcx(dcx_pin, false), resx(resx_pin, true), backlight(backlight_pin, true)
+ILI9341::ILI9341(PinName mosi_pin, PinName miso_pin, PinName sckl_pin, PinName cs_pin, PinName dcx_pin, PinName resx_pin, PinName backlight_pin)
+  : spi(mosi_pin, miso_pin, sckl_pin), cs(cs_pin, false), dcx(dcx_pin, false), resx(resx_pin, true), backlight(backlight_pin, true)
 {
 
   spi.format(8, 0);        // SPI frame of 8 bits and clock polarity and phase mode 0.
@@ -282,8 +282,9 @@ void ILI9341::setPageAddress(uint16_t sp, uint16_t ep)
   
   writeParameter(ep >> 8);
   writeParameter(ep & 0x00FF);
-  
+
 }
+
 void ILI9341::writeCommand(uint8_t cmd)
 {
 
@@ -311,17 +312,6 @@ void ILI9341::writeParameter(uint8_t data)
 
 }
 
-
-/*
-void ILI9341::writeData(uint8_t* data, int data_length)
-{
-
-  dcx = true;
-
-  spi.write(data, data_length, nullptr, 0);
-
-}
-*/
 void ILI9341::setMemoryAccessControl(uint8_t parameter) {
 
   writeCommand(MEMORY_ACCESS_CONTROL);
