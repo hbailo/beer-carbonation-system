@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include "ILI9341.h"
+#include "PinNames.h"
 #include "mbed.h"
 #include "XPT2046.h"
 
@@ -14,8 +15,8 @@ static bool touching = false;
 int main()
 {
 
-  ILI9341 ili9341(PB_5, PB_4, PB_3, PB_12, PC_7, PB_8, PA_15);
-  XPT2046 xpt2046(PE_14, PE_13, PE_12, PE_11, PE_15, handleOnTouchPressed, handleOnTouchReleased);
+  ILI9341 ili9341(PB_5, PB_4, PB_3, PA_4, PC_7, PA_15);
+  XPT2046 xpt2046(PB_15, PC_2, PB_13, PB_12, PC_6, handleOnTouchPressed, handleOnTouchReleased);
   
   uint16_t x; 
   uint16_t y;

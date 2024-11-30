@@ -8,8 +8,8 @@
  * - 16 bits colors
  * - Memory access control: BGR to RGB.
  */
-ILI9341::ILI9341(PinName mosi_pin, PinName miso_pin, PinName sckl_pin, PinName cs_pin, PinName dcx_pin, PinName resx_pin, PinName backlight_pin)
-  : spi(mosi_pin, miso_pin, sckl_pin), cs(cs_pin, false), dcx(dcx_pin, false), resx(resx_pin, true), backlight(backlight_pin, true)
+ILI9341::ILI9341(PinName mosi_pin, PinName miso_pin, PinName sckl_pin, PinName cs_pin, PinName dcx_pin, PinName resx_pin)
+  : spi(mosi_pin, miso_pin, sckl_pin), cs(cs_pin, false), dcx(dcx_pin, false), resx(resx_pin, true)
 {
 
   spi.format(8, 0);        // SPI frame of 8 bits and clock polarity and phase mode 0.
