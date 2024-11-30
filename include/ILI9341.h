@@ -38,7 +38,7 @@ public:
 
   /** @brief Initializes the ILI9341 hardware driver. */
   ILI9341(PinName mosi_pín, PinName miso_pin, PinName sckl_pin, PinName cs_pin,
-          PinName dcx_pin, PinName resx_pin, PinName backlight_pin);
+          PinName dcx_pin, PinName resx_pin);
 
   /** @brief Sets pixel with color. */
   void setPixel(uint16_t x, uint16_t y, Color color);
@@ -71,9 +71,6 @@ private:
 
   /** @brief RESX signal. */
   DigitalOut resx;
-
-  /** @brief Backlight signal. */
-  DigitalOut backlight;
   
   /** @brief Hardware commands. */
   enum Command : uint8_t {
