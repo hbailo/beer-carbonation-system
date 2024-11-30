@@ -4,7 +4,7 @@
 
 
 Carbonator::Carbonator()
-  : bpa1(A0), co2_injector(bpa1), co2_dissolver(bpa1)
+  : bpa1(PC_0), co2_injector(bpa1), co2_dissolver(bpa1)
 {
   
 }

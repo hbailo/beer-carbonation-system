@@ -1,4 +1,5 @@
 #include "CarbonationRecipe.h"
+#include "PinNames.h"
 #include "font.h"
 #include "HMI.h"
 #include "ILI9341.h"
@@ -17,8 +18,8 @@
 HMI::HMI(Carbonator &carbonator, CarbonationRecipe &carbonation_recipe)
     : carbonator(carbonator),
       carbonation_recipe(carbonation_recipe),
-      ili9341(PB_5, PB_4, PB_3, PB_12, PC_7, PB_8, PA_15),
-      xpt2046(PE_14, PE_13, PE_12, PE_11, PE_15,
+      ili9341(PB_5, PB_4, PB_3, PA_4 /*PB_12*/, PC_7, PA_15),
+      xpt2046(PB_15, PC_2, PB_13, PB_12, PC_6,
           [this]() { handleOnTouchPressed(); },
           [this]() { handleOnTouchReleased(); }),
       touch_state(TouchState::IDLE)
