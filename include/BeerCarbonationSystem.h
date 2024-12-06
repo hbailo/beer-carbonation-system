@@ -1,6 +1,7 @@
 #ifndef BEER_CARBONATION_SYSTEM__H
 #define BEER_CARBONATION_SYSTEM__H
 
+#include "AlarmSystem.h"
 #include "CarbonationRecipe.h"
 #include "Carbonator.h"
 #include "HMI.h"
@@ -12,10 +13,9 @@
  *
  * This class implements the process cell logic (ISA S88 design pattern), managing user interface, executing the recipes and controlling the equipment.
  *
- * @todo Implement alarm support.
  */
 class BeerCarbonationSystem {
-
+ 
 public:
   /** @brief Initializes the process cell. */
   BeerCarbonationSystem() ;    
@@ -29,6 +29,9 @@ private:
   
   /** @brief Carbonation control recipe. */
   CarbonationRecipe carbonation_recipe ;
+
+  /** @brief Alarm system */
+  AlarmSystem alarm_system;
   
   /** @brief Human Machine Interface. */
   HMI hmi ;
@@ -36,10 +39,6 @@ private:
   /** @brief Supervisory computer. */
   SupervisoryComputer supervisory_computer;
 
-  // TODO: Add alarm support.
-  // /** @brief Alarm siren. */
-  // Siren siren ;
-  
 };
 
 #endif

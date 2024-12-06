@@ -1,6 +1,7 @@
 #ifndef HMI__H
 #define HMI__H
 
+#include "AlarmSystem.h"
 #include "CarbonationRecipe.h"
 #include "Carbonator.h"
 #include "ILI9341.h"
@@ -20,7 +21,7 @@ class HMI {
 
 public:
   /** @brief Initializes HMI. */
-  HMI(Carbonator& carbonator, CarbonationRecipe& carbonation_recipe);
+  HMI(Carbonator& carbonator, CarbonationRecipe& carbonation_recipe, AlarmSystem& alarm_system);
 
   /** @brief Updates HMI. */
   void update();
@@ -31,6 +32,12 @@ private:
 
   /** @brief Carbonation master recipe. */
   CarbonationRecipe& carbonation_recipe;
+
+  /** @brief Alarm system. */
+  AlarmSystem& alarm_system;
+
+  //** @brief Alarm indicator visibility state. */
+  bool is_alarm_indicator_visible;
   
   /** @brief LCD hardware driver. */
   ILI9341 ili9341 ;

@@ -1,3 +1,4 @@
+#include "AlarmSystem.h"
 #include "CarbonationRecipe.h"
 #include "PinNames.h"
 #include "font.h"
@@ -7,6 +8,7 @@
 #include <cmath>
 #include <cstdint>
 #include <system_error>
+#include <vector>
 
 /**
  * Initializes the HMI system with references to the carbonation equipment 
@@ -15,9 +17,10 @@
  * @param carbonator Reference to the Carbonator unit.
  * @param carbonation_recipe Reference to the CarbonationRecipe being used.
  */
-HMI::HMI(Carbonator &carbonator, CarbonationRecipe &carbonation_recipe)
+HMI::HMI(Carbonator &carbonator, CarbonationRecipe &carbonation_recipe, AlarmSystem& alarm_system)
     : carbonator(carbonator),
       carbonation_recipe(carbonation_recipe),
+      alarm_system(alarm_system),
       ili9341(PB_5, PB_4, PB_3, PA_4 /*PB_12*/, PC_7, PA_15),
       xpt2046(PB_15, PC_2, PB_13, PB_12, PC_6,
           [this]() { handleOnTouchPressed(); },
@@ -306,13 +309,22 @@ void HMI::updateBarrelPressureText()
 
 
 /**
- *  @todo Implement alarm indication support.
+ *  
  */ 
 void HMI::updateAlarmIndicator()
 {
 
-  // print("Alarm: Barrel overpressure (BPA1)", 0, 24, ILI9341::WHITE,
-  //       ILI9341::RED);
+  std::vector<const char*> active_alarms = alarm_system.getActiveAlarms();
+
+  if (not active_alarms.empty()) {
+    print(active_alarms.back(), 0, 72, ILI9341::WHITE, ILI9341::RED);
+    is_alarm_indicator_visible = true;
+  } else if (is_alarm_indicator_visible) {
+    print("                                   ", 0, 72, ILI9341::WHITE,
+          ILI9341::BLACK);
+    is_alarm_indicator_visible = false;
+  }
+  
 }
 
 /**
