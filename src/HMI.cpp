@@ -316,7 +316,7 @@ void HMI::updateAlarmIndicator()
 
   std::vector<const char*> active_alarms = alarm_system.getActiveAlarms();
 
-  if (not active_alarms.empty()) {
+  if (not active_alarms.empty() and not is_alarm_indicator_visible) {
     print(active_alarms.back(), 0, 72, ILI9341::WHITE, ILI9341::RED);
     is_alarm_indicator_visible = true;
   } else if (is_alarm_indicator_visible) {
@@ -376,8 +376,6 @@ void HMI::updateHomeScreenTouch()
       carbonation_recipe.reset();
     }
 
-    // TODO: Add alarm ack button
-    
     touch_state = TouchState::IDLE;
     
     break;
