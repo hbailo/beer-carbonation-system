@@ -1,12 +1,14 @@
 #ifndef BEER_CARBONATION_SYSTEM__H
 #define BEER_CARBONATION_SYSTEM__H
 
+#include "mbed.h"
+
 #include "AlarmSystem.h"
 #include "CarbonationRecipe.h"
 #include "Carbonator.h"
 #include "HMI.h"
 #include "SupervisoryComputer.h"
-#include "mbed.h"
+#include "WebServer.h"
 
 /**
  * @brief Beer carbonation system
@@ -32,13 +34,19 @@ private:
 
   /** @brief Alarm system */
   AlarmSystem alarm_system;
-  
-  /** @brief Human Machine Interface. */
-  HMI hmi ;
 
+  /** @brief Human Machine Interface. */
+  HMI hmi;
+  
+  /** @brief Web server. */
+  WebServer web_server;
+  
   /** @brief Supervisory computer. */
   SupervisoryComputer supervisory_computer;
-
+  
+  /** @brief Execution timer. */
+  Timer timer;
+  
 };
 
 #endif

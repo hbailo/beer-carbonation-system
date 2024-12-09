@@ -36,7 +36,7 @@ private:
   /** @brief Reporting state. */
   ReportingState reporting_state;
 
-  constexpr static const char* USAGE_INFO = "Usage: Send key to issue a command.\n\rCommands:\n\r1: Start the recipe.\n\r2: Stop the recipe.\n\r3: Hold the recipe.\n\r4: Resume the recipe.\n\r5: Reset the recipe.\n\rr: Start process information reporting.\n\rR: Stop process information reporting.\n\rA: Acknowledge alarm.\n\rh: Show this help.\n\r";
+  constexpr static const char* USAGE_INFO = "Usage: Send key to issue a command.\n\rCommands:\n\r1: Start the recipe.\n\r2: Stop the recipe.\n\r3: Hold the recipe.\n\r4: Resume the recipe.\n\r5: Reset the recipe.\n\rr: Start process information reporting.\n\rR: Stop process information reporting.\n\rh: Show this help.\n\r";
   
 };
 
