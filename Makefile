@@ -1,5 +1,5 @@
 MAKEFLAGS += -s
-profile = develop
+profile = release
 
 compile:  # Compile develop profile
 	cmake --build build/$(profile) -j 4
