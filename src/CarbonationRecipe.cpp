@@ -9,7 +9,7 @@
 CarbonationRecipe::CarbonationRecipe(Carbonator& carbonator)
   : carbonator(carbonator), recipe_state(RecipeState::IDLE), step(RecipeStep::STEP_1)
 {
-  
+
 }
 
 /**
@@ -176,6 +176,13 @@ int CarbonationRecipe::getRecipeStep()
 void CarbonationRecipe::handleExecutingState()
 {
 
+  // Interlock logic
+  if (carbonator.getBPA1() > 4) {
+    stop();
+    return;
+  }
+  
+  // Recipe logic
   switch (step) {
 
   case RecipeStep::STEP_1:
