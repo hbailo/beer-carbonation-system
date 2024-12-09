@@ -55,10 +55,6 @@ void SupervisoryComputer::update()
     case 'R':
       reporting_state = ReportingState::IDLE;
       break;
-      
-    case 'A':
-      // TODO: Implement alarm support.
-      break;
 
     case 'h':
       uart.write(USAGE_INFO, strlen(USAGE_INFO));
