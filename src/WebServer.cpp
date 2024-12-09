@@ -7,7 +7,7 @@
  *
  */
 WebServer::WebServer(Carbonator& carbonator, CarbonationRecipe& carbonation_recipe, AlarmSystem& alarm_system)
-  : esp01("TeleCentro-4dc4", "silvana6523"), carbonator(carbonator), carbonation_recipe(carbonation_recipe), alarm_system(alarm_system), response_buffer("")
+  : esp01("TeleCentro-4dc4", "******"), carbonator(carbonator), carbonation_recipe(carbonation_recipe), alarm_system(alarm_system), response_buffer("")
 {
 
 }
