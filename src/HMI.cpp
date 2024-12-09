@@ -21,7 +21,7 @@ HMI::HMI(Carbonator &carbonator, CarbonationRecipe &carbonation_recipe, AlarmSys
     : carbonator(carbonator),
       carbonation_recipe(carbonation_recipe),
       alarm_system(alarm_system),
-      ili9341(PB_5, PB_4, PB_3, PA_4 /*PB_12*/, PC_7, PA_15),
+      ili9341(PB_5, PB_4, PB_3, PA_4, PC_7, PA_15),
       xpt2046(PB_15, PC_2, PB_13, PB_12, PC_6,
           [this]() { handleOnTouchPressed(); },
           [this]() { handleOnTouchReleased(); }),
@@ -30,7 +30,7 @@ HMI::HMI(Carbonator &carbonator, CarbonationRecipe &carbonation_recipe, AlarmSys
 {
 
   initHomeScreen();
-  
+
 }
 
 
@@ -201,7 +201,7 @@ void HMI::initHomeScreen()
 
   ili9341.drawRectangle(108, 174, 175, 203, ILI9341::YELLOW);
   print("Reset", 122, 181, ILI9341::WHITE, ILI9341::BLACK);
-  
+
 }
 
 /**
@@ -319,7 +319,7 @@ void HMI::updateAlarmIndicator()
   if (not active_alarms.empty() and not is_alarm_indicator_visible) {
     print(active_alarms.back(), 0, 72, ILI9341::WHITE, ILI9341::RED);
     is_alarm_indicator_visible = true;
-  } else if (is_alarm_indicator_visible) {
+  } else if (active_alarms.empty() and is_alarm_indicator_visible) {
     print("                                   ", 0, 72, ILI9341::WHITE,
           ILI9341::BLACK);
     is_alarm_indicator_visible = false;
