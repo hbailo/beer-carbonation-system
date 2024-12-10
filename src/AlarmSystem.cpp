@@ -8,12 +8,11 @@
  */
 AlarmSystem::AlarmSystem(Carbonator& carbonator, CarbonationRecipe& carbonation_recipe)
   : siren(PA_3, 2000)
-
 {
 
   alarms[0].message = "Barrel overpressure, BPA1 >= 4 bar.";
   alarms[0].trigger = [&carbonator]() -> bool {return carbonator.getBPA1() > 4;};
-  alarms[0].state = AlarmState::INACTIVE;
+  alarms[0].state  = AlarmState::INACTIVE;
   
 }
 

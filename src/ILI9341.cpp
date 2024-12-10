@@ -63,16 +63,16 @@ void ILI9341::drawImage(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 void ILI9341::fillScreen(Color color)
 {
   
-  Color patch[4 * 320];
+  Color patch[2 * 320];
   
-  for (uint16_t i = 0; i < 4 * 320; ++i) {
+  for (uint16_t i = 0; i < 2 * 320; ++i) {
       patch[i] = color;
   }
   
-  for (uint16_t y = 0; y < 320; y += 4) {
+  for (uint16_t y = 0; y < 320; y += 2) {
 
     for (uint16_t x = 0; x < 240; x += 240) {
-      drawImage(x, y, 320, 4, patch);
+      drawImage(x, y, 320, 2, patch);
     }
 
   }
