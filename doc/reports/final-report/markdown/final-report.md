@@ -42,7 +42,7 @@ solución adaptable para diferentes escalas de producción en la industria cerve
   El objetivo del proyecto es desarrollar un sistema automatizado y modular de un equipo carbonatador existente para la carbonatación de cerveza en barriles, capaz de garantizar calidad, precisión y consistencia en el proceso, bajo estándares industriales como ISA S88 [1], y con capacidad de integración en sistemas de gestión mediante comunicación abierta.
 
 ### 1.2. Equipo
-El equipo carbonatador a automatizar esta diseñado a medida para una planta de bajo nivel de producción.
+El equipo carbonatador a automatizar está diseñado a medida para una planta de bajo nivel de producción.
 En la figura 1.1 se muestra un diagrama P&ID con tags en formato IEC 81346-2 [3].
 El sistema consiste en untanque de CO2 conectado a un barril de cerveza a través de la válvula solenoide
 QMB1. El barril se encuentra montado sobre una criba vibratoria que se acciona mediante el motor eléctrico
@@ -75,14 +75,14 @@ de 10 mbar.
 La receta que se requiere automatizar para lograr la carbonatación completa de un barril estándar se describe
 a continuación en pasos numerados y se muestra gráficamente en el diagrama de flujo de la figura 1.2.
 
-1. Se inyectan 3 bares de CO2 al barril accionando QMB1 hasta que BPA1 = 3 bar.
+1. Se inyecta CO2 al barril accionando QMB1 hasta que BPA1 = 3 bar.
 2. Se diluye el CO2 encendiendo la criba vibratoria. Si una vez diluido el gas se mide 0,9 bar < BPA1 < 1 bar
 entonces se finaliza la receta con el barril correctamente carbonatado, sino si BPA1 < 0,9 bar se pasa al
 paso 3.
-3. Se inyectan 2 bares de CO2 .
+3. Se inyecta CO2 al barril accionando QMB1 hasta que BPA1 = 2 bar.
 4. Se diluye el CO2 y si 0,9 bar < BPA1 < 1 bar se finaliza satisfactoriamente la receta, sino si BPA1 < 0,9 bar
 se pasa al paso 5.
-5. Se inyecta 1 bar de CO2 .
+5. Se inyecta CO2 al barril accionando QMB1 hasta que BPA1 = 1 bar.
 6. Se diluye el CO2 y si 0,9 bar < BPA1 < 1 bar se finaliza satisfactoriamente la receta, sino si BPA1 < 0,9 bar
 se repiten los pasos 5 y 6 indefinidamente.
 En los pasos 2, 4 y 6 la condición BPA1 > 1 bar detiene la receta dado que no deberı́a producirse si el sistema
@@ -270,11 +270,11 @@ En la tabla 2.1 se muestran los requisitos del sistema desarrollado.
   <tr>
     <td rowspan="2">Sistema de alarmas y <br>enclavamientos</td>
     <td>5.1</td>
-    <td>Alarma por sobrepresión cuando BP A1 &gt; 4 bar.</td>
+    <td>Alarma por sobrepresión cuando BPA1 &gt; 4 bar.</td>
   </tr>
   <tr>
     <td>5.2</td>
-    <td>Detención del proceso por sobrepresión cuando BP A1 &gt; 4 bar.</td>
+    <td>Detención del proceso por sobrepresión cuando BPA1 &gt; 4 bar.</td>
   </tr>
   <tr>
     <td rowspan="6">Servidor web</td>
@@ -590,7 +590,7 @@ La pantalla del HMI implementada se muestra en la figura 3.2. A través de los b
 ejecución de la receta y con los indicadores se monitorea el estado.
 
 <picture>
-    <img alt="" src="img/hmi-home.png">
+    <img alt="" src="img/hmi-home.jpg">
 </picture> 
 
 **Figura 3.2: Pantalla del HMI.**
@@ -643,7 +643,7 @@ carbonatación y controla los equipos relacionados con el proceso.
 #### 3.2.8. Clase CarbonationRecipe
 La clase CarbonationRecipe implementa la receta de carbonatación de acuerdo al patrón ISA S88, permitiendo
 el control del estado de acuerdo a la máquina de estados de la figura 3.4.
-Implementa el enclavamiento de protección en caso de sobrepresión BP A1 > 4 bar, deteniendo el proceso y
+Implementa el enclavamiento de protección en caso de sobrepresión BPA1 > 4 bar, deteniendo el proceso y
 evitando su reanudación hasta que esta condición desaparezca.
 
 <picture>
@@ -811,7 +811,7 @@ la visualización remota del estado del proceso de carbonatación a través de u
 ESP01 para la conexión Wi-Fi y la transmisión de información.
 
 **Componentes principales:**
-*esp01: Objeto que representa el módulo ESP01, responsable de la conexión Wi-Fi y la gestión de solicitudes
+* esp01: Objeto que representa el módulo ESP01, responsable de la conexión Wi-Fi y la gestión de solicitudes
 HTTP.
 
 #### 3.2.21. Clase ESP01
@@ -863,11 +863,9 @@ generados por la placa y se verificó que el valor medido por el objeto AnalogIn
 realizadas con multı́metro.
 
 ### 4.1.5. Módulo de alimentación
-Se conectó el módulo de alimentación al protoboard y a la fuente de 5 V . Se verificó mediante una medición
-de voltı́metro que la tensión generada era de 3,3 V .
-4.1.6.
+Se conectó el módulo de alimentación al protoboard y a la fuente de 5 V . Se verificó mediante una medición de voltı́metro que la tensión generada era de 3,3 V.
 
-### Motor MAA1 y válvula solenoide QMB1
+### 4.1.6. Motor MAA1 y válvula solenoide QMB1
 Para demostrar el correcto funcionamiento de las salidas digitales correspondientes al motor MAA1 y QMB1
 se conectaron sus salidas a los LEDs 1 y 2 de la placa NUCLEO.
 
