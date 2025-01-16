@@ -1,8 +1,5 @@
 # Sistema de carbonatación de cerveza
 
-## TODO:
-* Implementar soporte para alarmas.
-
 ## Alumno
 Hernán Leandro Bailo
 
