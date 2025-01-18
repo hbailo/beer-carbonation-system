@@ -3,13 +3,30 @@
 ## Alumno
 Hernán Leandro Bailo
 
-## Objetivo
-Desarrollar un sistema de carbonatación de cerveza en barriles.
+## Resumen
+Se describe el desarrollo de la automatización de un sistema de carbonatación de cerveza en barriles.
+
+El sistema se basa en una placa de desarrollo NUCLEO-F429ZI y esta diseñado conforme a los patrones de
+diseño de procesos modulares de ISA S88.
+
+Entre sus funcionalidades principales se incluye el control mediante HMI de la receta de carbonatación, per-
+mitiendo al operador iniciar, detener y reanudar su ejecución, el monitoreo y control mediante una computadora
+de supervisión y el acceso a los datos de procesos desde un navegador web.
+
+El sistema destaca por su capacidad para mejorar la consistencia en la calidad del producto final, optimizando
+el tiempo de operación y minimizando la intervención manual. Su diseño modular y escalable lo convierte en una
+solución adaptable para diferentes escalas de producción en la industria cervecera.
 
 ## Descripción del proceso
+En el proceso de elaboración de cerveza una de las últimas etapas es la carbonatación, donde se incorpora
+dióxido de carbono a lı́quido para crear efervescencia, realzar el sabor, conservar la cerveza y otros propósitos.
+En el caso actual la carbonatación se realiza artificialmente mediante la incorporación forzada del gas.
+
 El diagrama P&ID del sistema de carbonatación se muestra a continuación. Los tags utilizados están en formato IEC 81346 [1].
 
-El sistema consiste en un tanque de CO2 conectado a un barril de cerveza a través de la válvula solenoide QMB1. El barril se encuentra montado sobre una criba vibratoria que se acciona mediante el motor eléctrico MAA1. La presión interna del barril se mide con el sensor BPA1.
+El sistema consiste en untanque de CO2 conectado a un barril de cerveza a través de la válvula solenoide
+QMB1. El barril se encuentra montado sobre una criba vibratoria que se acciona mediante el motor eléctrico
+MAA1. La presión interna del barril se mide con el transmisor BPA1.
 
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="doc/architecture/process-and-instrumentation-diagram-dark.png">
@@ -18,21 +35,41 @@ El sistema consiste en un tanque de CO2 conectado a un barril de cerveza a trav�
 </picture>
 
 ### Fases del proceso
-* Inyección de CO2: Accionando la válvula solenoide (normalmente cerrada) (QMB1) se inyecta CO2 al barril de cerveza. La cantidad de gas inyectado se mide a través de la presión del barril (BPA1).
+El procedimiento de carbonatación se basa en la iteración de las siguientes dos fases, estructuradas según el patrón de diseño ISA S88 [2]:
 
-* Disolución del CO2: Encendiendo la criba vibratoria (MAA1) se agita la cerveza y se favorece la disolución del CO2. El grado de disolución se mide indirectamente a través de la presión del barril (BPA1). A medida que el CO2 se diluye en la cerveza BPA1 decrece y se establece en un determinado valor. Se asume que se completó la disolución cuando dos muestras sucesivas de BPA1 con una separación de 1s difieren en menos de 10 mbar.
+* Inyección de CO2: Accionando la válvula solenoide (normalmente cerrada) (QMB1) se inyecta CO2 al barril
+de cerveza. La cantidad de gas inyectado se mide a través de la presión del barril (BPA1).
+
+* Disolución del CO2: Encendiendo la criba vibratoria (MAA1) se agita la cerveza y se favorece la disolución
+del CO2. El grado de disolución se mide indirectamente a través de la presión del barril (BPA1). A medida
+que el CO2 se diluye en la cerveza BPA1 decrece y se establece en un determinado valor. Se asume que se
+completó la disolución cuando dos muestras sucesivas de BPA1 con una separación de 1s difieren en menos
+de 10 mbar.
 
 ### Receta de carbonatación
-A continuación se describen los pasos de la receta de carbonatación implementada.
+La receta que se requiere automatizar para lograr la carbonatación completa de un barril estándar se describe
+a continuación en pasos numerados y se muestra gráficamente en el diagrama de flujo siguiente.
 
-1. Se inyectan 3 bares de CO2 al barril accionando QMB1 hasta que BPA1 = 3 bar.
-2. Se diluye el CO2 encendiendo la criba vibratoria. Si una vez diluido el gas se mide 0.9 bar < BPA1 < 1 bar entonces se finaliza la receta con el barril correctamente carbonatado, sino si BPA1 < 0.9 bar se pasa al paso 3. 
-3. Se inyectan 2 bares de CO2.
-4. Se diluye el CO2 y si 0.9 bar < BPA1 < 1 bar se finaliza satisfactoriamente la receta, sino si BPA1 < 0.9 bar se pasa al paso 5.
-5. Se inyecta 1 bar de CO2.
-6. Se diluye el CO2 y si 0.9 bar < BPA1 < 1 bar se finaliza satisfactoriamente la receta, sino si BPA1 < 0.9 bar se repiten los pasos 5 y 6 indefinidamente.
+1. Se inyecta CO2 al barril accionando QMB1 hasta que BPA1 = 3 bar.
+2. Se diluye el CO2 encendiendo la criba vibratoria. Si una vez diluido el gas se mide 0,9 bar < BPA1 < 1 bar
+entonces se finaliza la receta con el barril correctamente carbonatado, sino si BPA1 < 0,9 bar se pasa al
+paso 3.
+3. Se inyecta CO2 al barril accionando QMB1 hasta que BPA1 = 2 bar.
+4. Se diluye el CO2 y si 0,9 bar < BPA1 < 1 bar se finaliza satisfactoriamente la receta, sino si BPA1 < 0,9 bar
+se pasa al paso 5.
+5. Se inyecta CO2 al barril accionando QMB1 hasta que BPA1 = 1 bar.
+6. Se diluye el CO2 y si 0,9 bar < BPA1 < 1 bar se finaliza satisfactoriamente la receta, sino si BPA1 < 0,9 bar
+se repiten los pasos 5 y 6 indefinidamente.
+En los pasos 2, 4 y 6 la condición BPA1 > 1 bar detiene la receta dado que no deberı́a producirse si el sistema
+funciona adecuadamente. Se debe revisar el equipo.
 
 Nota: en los pasos 2, 4 y 6 la condición BPA1 > 1 bar detiene la receta dado que no debería producirse si el sistema funciona adecuadamente. Se debe revisar el equipo.
+
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="doc/design/classes/CarbonationRecipe/recipe-flow-diagram-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="doc/design/classes/CarbonationRecipe/recipe-flow-diagram-light.png"> 
+    <img alt="Shows the recipe flow diagram." src="doc/design/classes/CarbonationRecipe/recipe-flow-diagram-light.png">
+</picture>
 
 ### Operación
 La operación del sistema se basa en la ejecución de la receta de carbonatación, siguiendo el patrón de diseño de manufactura flexible ISA S88 [2].
