@@ -1,0 +1,20 @@
+\section{Resultados obtenidos}
+El sistema desarrollado en base al patrón de diseño de ISA S88 resulta mantenible, escalable y extensible.
+
+Por otro lado, implementar el proyecto en mbed aceleró los tiempos de desarrollo pero significó una perdida de dominio en cuanto a conocimiento interno del sistema operativo.
+
+Teniendo en cuenta que el soporte para mbed finaliza en 2026 es conveniente migrar el código para utilizar solo la libreria STM32CubeF4.
+
+\section{Próximos pasos}
+
+\begin{itemize}
+\item Migrar el código desde mbed a la librería STM32CubeF4.
+\item Crear un worflow con la toolchain ARM-GNU de forma de independizarse de los IDE para automatizar tareas y lograr control total del proceso.
+\item Crear y automatizar pruebas unitarias y de integración mediante un esquema xUnit.
+\item Refactorizar la clase WebServer para gestionar mejor los tiempos de espera y la latencia de las peticiones.
+\end{itemize}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% End:

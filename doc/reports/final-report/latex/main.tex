@@ -1,0 +1,49 @@
+\documentclass{report}
+
+% Packages import
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{float}
+\usepackage[a4paper, left=20mm, right=18mm, top=20mm, bottom=22.5mm, footskip=15mm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+
+% Document
+\begin{document}
+
+\input{caratula/caratula}
+
+\input{resumen/resumen}
+
+\tableofcontents
+\newpage
+
+\section*{Registro de versiones}
+\input{registro-de-versiones/registro-de-versiones}
+\newpage
+
+\chapter{Introducción general}
+\input{introduccion-general/introduccion-general}
+
+\chapter{Introducción específica}
+\input{introduccion-especifica/introduccion-especifica}
+
+\chapter{Diseño e implementación}
+\input{diseño-e-implementacion/diseño-e-implementacion}
+
+\chapter{Ensayos y resultados}
+\input{ensayos-y-resultados/ensayos-y-resultados}
+
+\chapter{Conclusiones}
+\input{conclusiones/conclusiones}
+
+\input{referencias/referencias}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: t
+%%% End:

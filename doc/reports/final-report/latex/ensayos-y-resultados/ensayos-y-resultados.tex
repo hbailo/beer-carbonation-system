@@ -1,0 +1,110 @@
+\section{Pruebas funcionales del hardware}
+Las pruebas funcionales del hardware se realizaron por módulos.
+
+\subsection{Módulo Wi-Fi ESP01}
+Se conectó el módulo a la placa y en paralelo un analizador de protocolos para verificar el correcto envío de comandos y la recepción de respuestas.
+
+\subsection{Módulo HMI}
+Se conectó el módulo a la placa y se realizó la calibración del display mediante la graficación de puntos.
+Adicoinalmente se conectó un analizador de protocolos en los pines de comunicación ambos SPI para verificar el correcto envío de comandos y la recepción de respuestas.
+
+\subsection{Módulo buzzer}
+Se conectó el buzzer al terminal de masa y se le envío una señal PWM con la placa nucleo verificando el correcto funcionamiento.
+
+\subsection{Transmisor de presión}
+El transmisor de presión se simuló mediante un potenciometro de \(50\,k\Omega\). Se conectó el mismo a los \(3.3\,V\) generados por la placa y se verificó que el valor medido por el objeto AnalogIn sea consistente con las mediciones realizadas con multímetro.
+
+\subsection{Módulo de alimentación}
+Se conectó el módulo de alimentación al protoboard y a la fuente de \(5\,V\). Se verificó mediante una medición de voltímetro que la tensión generada era de \(3.3\,V\).
+
+\subsection{Motor MAA1 y válvula solenoide QMB1}
+Para demostrar el correcto funcionamiento de las salidas digitales correspondientes al motor MAA1 y QMB1 se conectaron sus salidas a los LEDs 1 y 2 de la placa NUCLEO.
+
+
+\subsection{Pruebas funcionales del firmware}
+Las pruebas funcionales del firmware se realizaron en conjunto con las distintas pruebas para los módulos de hardware.
+
+La lógica de la receta se verificó mediante el uso del debugger.
+
+\subsection{Pruebas de integracion}
+Las pruebas de integración realizadas se encuentran en formato de video en \cite{PDI}.
+
+Se verificó:
+
+\begin{itemize}
+\item Disposición del hardware.
+\item Lógica de la receta y respuesta a comandos.
+\item Comandos mediante la computadora de supervisión por terminal serie.
+\item Monitoreo mediante el servidor web.
+\item Alarmas y enclavamientos.
+\end{itemize}
+
+\subsection{Cumplimiento de requisitos}
+En la tabla \ref{table:cumplimiento-requisitos} se presenta la evaluación del cumplimiento de los requisitos iniciales de la tabla \ref{table:requisitos}. Se evaluó a el estado actual de cada uno indicando en verde aquellos que ya fueron cumplidos y en rojo los requerimientos no cumplidos.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% \usepackage[table,xcdraw]{xcolor}
+% Beamer presentation requires \usepackage{colortbl} instead of \usepackage[table,xcdraw]{xcolor}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|l|
+>{\columncolor[HTML]{32CB00}}l |}
+\hline
+\cellcolor[HTML]{EFEFEF}\textbf{Grupo}                                                          & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}\textbf{ID}} & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}\textbf{Descripción}}                \\ \hline
+                                                                                                & 1.1                                                      & Implementación de receta de carbonatación según ISA S88                          \\ \cline{2-3} 
+                                                                                                & 1.2                                                      & Inyección de CO2 mediante válvula solenoide (QMB1)                               \\ \cline{2-3} 
+                                                                                                & 1.3                                                      & Disolución de CO2 mediante criba vibratoria accionada por motor eléctrico (MAA1) \\ \cline{2-3} 
+\multirow{-4}{*}{Control del proceso}                                                           & 1.4                                                      & Monitoreo de presión (BPA1)                                                      \\ \hline
+                                                                                                & 2.1                                                      & Comunicación con MCU                                                             \\ \cline{2-3} 
+                                                                                                & 2.2                                                      & Indicación de estado de receta                                                   \\ \cline{2-3} 
+                                                                                                & 2.3                                                      & Indicación de paso de receta                                                     \\ \cline{2-3} 
+                                                                                                & 2.4                                                      & Indicación de alarmas                                                            \\ \cline{2-3} 
+                                                                                                & 2.5                                                      & Indicación de presión BPA1                                                       \\ \cline{2-3} 
+\multirow{-6}{*}{HMI}                                                                           & 2.6                                                      & Botones de comando de receta: start, stop, hold, resume, reset                   \\ \hline
+                                                                                                & 3.1                                                      & Conexión con MCU                                                                 \\ \cline{2-3} 
+\multirow{-2}{*}{Sirena}                                                                        & 3.2                                                      & Configuración de la alerta sonora                                                \\ \hline
+                                                                                                & 4.1                                                      & Comunicación con MCU                                                             \\ \cline{2-3} 
+                                                                                                & 4.2                                                      & Comandos de receta: start, stop, hold, resume, reset                             \\ \cline{2-3} 
+                                                                                                & 4.3                                                      & Comando de reporte de presión BPA1                                               \\ \cline{2-3} 
+\multirow{-4}{*}{\begin{tabular}[c]{@{}c@{}}Computadora de\\ supervisión\end{tabular}}          & 4.4                                                      & Comando de ayuda al operador                                                     \\ \hline
+                                                                                                & 5.1                                                      & Alarma por sobrepresión cuando BPA1 \textgreater 4 bar                           \\ \cline{2-3} 
+\multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Sistema de alarmas\\ y enclavamientos\end{tabular}} & 5.2                                                      & Detención del proceso por sobrepresión cuando BPA1 \textgreater 4 bar            \\ \hline
+                                                                                                & 6.1                                                      & Comunicación WiFi con MCU                                                        \\ \cline{2-3} 
+                                                                                                & 6.2                                                      & Implementación de servidor HTTP                                                  \\ \cline{2-3} 
+                                                                                                & 6.3                                                      & Indicación de estado de receta mediante HTML                                     \\ \cline{2-3} 
+                                                                                                & 6.4                                                      & Indicación de paso de receta                                                     \\ \cline{2-3} 
+                                                                                                & 6.5                                                      & Indicación de presión BPA1                                                       \\ \cline{2-3} 
+\multirow{-6}{*}{Servidor web}                                                                  & 6.6                                                      & Indicación de alarmas                                                            \\ \hline
+\end{tabular}
+\caption{Estado de los requisitos.}
+\label{table:cumplimiento-requisitos}
+\end{table}
+
+\section{Documentación del desarrollo realizado}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\multicolumn{1}{|c|}{\cellcolor[HTML]{EFEFEF}\textbf{Elemento}} & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}\textbf{Referencia}} \\ \hline
+Presentación del proyecto                                       & Capítulo 1                                                       \\ \hline
+Listado de requisitos                                           & Tabla 2.1                                                        \\ \hline
+Casos de uso del proyecto                                       & Tablas 2.2 a 2.3                                                 \\ \hline
+Diagrama en bloques del sistema                                 & Figura 3.1                                                       \\ \hline
+Lista de señales                                                & Tabla 3.1                                                        \\ \hline
+Implementación del hardware                                     & Sección 3.1                                                      \\ \hline
+Módulos de software                                             & Sección 3.2                                                      \\ \hline
+Repositorio                                                     & \textbackslash{}cite\{REPO\}                                     \\ \hline
+Cumplimiento de requisitos                                      & Tabla 4.1                                                        \\ \hline
+Conclusiones finales                                            & Capítulo 5                                                       \\ \hline
+\end{tabular}
+\caption{Elementos del sumario del sistema automático para el sistema de carbonatación de cerveza.}
+\label{table:documentacion}
+\end{table}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% End:
